@@ -5,6 +5,10 @@ export interface FiverrPackage {
   badge?: string;
   priceEur: number;
   priceUsd: number;
+  depositEur: number;
+  finalPaymentEur: number;
+  monthlyMaintenanceEur: number;
+  monthlyMaintenanceDesc: string;
   deliveryDays: number;
   revisions: string;
   pages: number;
@@ -132,12 +136,19 @@ export const FIVERR_PACKAGES: FiverrPackage[] = [
     subtitle: "Landing Page Express",
     priceEur: 120,
     priceUsd: 130,
+    depositEur: 30,
+    finalPaymentEur: 90,
+    monthlyMaintenanceEur: 45,
+    monthlyMaintenanceDesc: "45€ al mes (pago por adelantado): para si quieres hacer algún cambio de imágenes o de información dentro de la landing, solo tienes que pedirlo y nosotros nos encargamos.",
     deliveryDays: 3,
     revisions: "2 Revisiones",
     pages: 1,
     description: "Ideal para profesionales y emprendedores que necesitan una página de aterrizaje de alto impacto para captar clientes o presentar un producto.",
     highlights: [
-      "1 Página moderna (One-Page / Landing Page)",
+      "Precio total: 120€ (pago fraccionado: 30€ para pedir + 90€ al finalizar)",
+      "Exclusividad: Solo 1 web por pedido para máxima atención a tu proyecto",
+      "Mantenimiento opcional: 45€/mes por adelantado para cambios de imágenes o información",
+      "1 Página moderna (One-Page / Landing Page de conversión)",
       "Diseño 100% responsive para móvil y escritorio",
       "Formulario de contacto funcional hacia tu correo",
       "Botón directo de WhatsApp y enlaces a redes",
@@ -160,24 +171,30 @@ export const FIVERR_PACKAGES: FiverrPackage[] = [
   },
   {
     id: "estandar",
-    name: "Estándar",
-    subtitle: "Web Corporativa Pro",
-    badge: "Más elegido en Fiverr",
+    name: "Web Corporativa",
+    subtitle: "Presencia Corporativa & Negocios",
+    badge: "Más elegido para empresas",
     popular: true,
-    priceEur: 290,
-    priceUsd: 320,
-    deliveryDays: 6,
+    priceEur: 1200,
+    priceUsd: 1300,
+    depositEur: 400,
+    finalPaymentEur: 800,
+    monthlyMaintenanceEur: 250,
+    monthlyMaintenanceDesc: "Desde 250€ al mes (pago por adelantado): incluye gestión integral de contenidos, cambios de imágenes/textos, optimizaciones continuas y supervisión de Agentes de Inteligencia Artificial (IA) para atención y captura de clientes.",
+    deliveryDays: 7,
     revisions: "4 Revisiones",
     pages: 5,
-    description: "La solución completa para empresas y negocios locales que buscan posicionarse sólidamente, explicar sus servicios y atraer clientes continuos.",
+    description: "Solución corporativa completa para empresas, clínicas y profesionales que buscan posicionamiento de autoridad y automatización inteligente.",
     highlights: [
+      "Precio total: 1.200€ (pago fraccionado: 400€ para pedir + 800€ al finalizar)",
+      "Exclusividad garantizada: Solo 1 web por pedido (dedicación 100% enfocada)",
+      "Mantenimiento opcional: Desde 250€/mes con Agentes de IA incluidos",
       "Hasta 5 Páginas completas (Inicio, Servicios, Nosotros, Portafolio, Contacto)",
-      "Diseño visual premium con animaciones suaves y micro-interacciones",
-      "Optimización SEO on-page completa (metaetiquetas y estructura)",
-      "Formulario de cotización con campos personalizados",
-      "Integración de Google Maps y botones de llamada rápida",
-      "Panel de administración fácil para actualizar textos y fotos",
-      "15 Días de soporte y resolución de dudas tras el lanzamiento"
+      "Integración de Agente IA para atención interactiva y captación de clientes",
+      "Diseño visual premium con animaciones fluidas y micro-interacciones",
+      "Optimización SEO on-page completa para posicionar en Google",
+      "Formulario de cotización con campos personalizados y Google Maps",
+      "15 Días de soporte técnico y resolución de dudas tras el lanzamiento"
     ],
     features: {
       responsive: true,
@@ -195,23 +212,29 @@ export const FIVERR_PACKAGES: FiverrPackage[] = [
   },
   {
     id: "premium",
-    name: "Premium",
-    subtitle: "E-Commerce & Solución Completa",
-    badge: "Máxima conversión",
-    priceEur: 550,
-    priceUsd: 590,
-    deliveryDays: 10,
+    name: "Web Pro",
+    subtitle: "E-Commerce & Solución con Agentes IA",
+    badge: "Máxima potencia & IA",
+    priceEur: 2700,
+    priceUsd: 2900,
+    depositEur: 900,
+    finalPaymentEur: 1800,
+    monthlyMaintenanceEur: 250,
+    monthlyMaintenanceDesc: "Desde 250€ - 350€ al mes (pago por adelantado): soporte prioritario, actualización de catálogo/productos, automatizaciones avanzadas y Agentes de Inteligencia Artificial (IA) dedicados.",
+    deliveryDays: 12,
     revisions: "Revisiones ilimitadas",
     pages: 10,
-    description: "Plataforma integral para tiendas online o empresas con catálogo avanzado que requieren pagos en línea, reservas o multi-idioma.",
+    description: "Plataforma de alta gama para marcas y tiendas online que requieren pasarelas de pago, catálogo dinámico y Agentes de Inteligencia Artificial (IA) avanzados.",
     highlights: [
-      "Hasta 10 Páginas y catálogo de productos/servicios",
+      "Precio: Desde 2.700€ (pago fraccionado: 900€ para pedir + 1.800€ al finalizar)",
+      "Exclusividad garantizada: Solo 1 web por pedido (desarrollo artesanal exclusivo)",
+      "Mantenimiento opcional: Desde 250€/mes con supervisión de Agentes IA y catálogo",
+      "Hasta 10 Páginas y catálogo de productos o servicios avanzados",
+      "Agentes de IA conversacionales para recomendaciones y ventas automáticas",
       "Pasarela de pago segura (Stripe, Tarjeta, PayPal o Bizum)",
       "Gestión de pedidos, inventario y correos automáticos al cliente",
-      "Estructura multi-idioma o sistema de reservas online",
       "Optimización de velocidad de carga extrema (Score 90+)",
-      "Capacitación en vídeo para gestionar tu propia web",
-      "30 Días de soporte técnico prioritario continuo"
+      "Capacitación en vídeo y 30 días de soporte técnico prioritario"
     ],
     features: {
       responsive: true,
@@ -230,8 +253,13 @@ export const FIVERR_PACKAGES: FiverrPackage[] = [
 ];
 
 export const COMPARISON_FEATURES = [
-  { name: "Páginas o secciones incluidas", basico: "1 Página", estandar: "Hasta 5 páginas", premium: "Hasta 10 páginas / catálogo" },
-  { name: "Tiempo de entrega estimado", basico: "3 días", estandar: "6 días", premium: "10 días" },
+  { name: "Páginas o secciones incluidas", basico: "1 Página (Landing)", estandar: "Hasta 5 páginas", premium: "Hasta 10 páginas / catálogo" },
+  { name: "Precio total del proyecto", basico: "120€", estandar: "1.200€", premium: "Desde 2.700€" },
+  { name: "Modalidad de pago fraccionado", basico: "30€ reserva + 90€ entrega", estandar: "400€ reserva + 800€ entrega", premium: "900€ reserva + 1.800€ entrega" },
+  { name: "Exclusividad de desarrollo", basico: "Solo 1 web por pedido", estandar: "Solo 1 web por pedido", premium: "Solo 1 web por pedido" },
+  { name: "Mantenimiento mensual opcional", basico: "45€/mes (fotos e info)", estandar: "Desde 250€/mes (+ Agentes IA)", premium: "Desde 250€/mes (+ Agentes IA Pro)" },
+  { name: "Integración de Agentes de Inteligencia Artificial (IA)", basico: "Opcional", estandar: "Agente IA de atención", premium: "Agentes IA avanzados de ventas" },
+  { name: "Tiempo de entrega estimado", basico: "3 días", estandar: "7 días", premium: "12 días" },
   { name: "Revisiones incluidas", basico: "2 rondas", estandar: "4 rondas", premium: "Ilimitadas" },
   { name: "Diseño 100% adaptable (Móvil / Tablet)", basico: true, estandar: true, premium: true },
   { name: "Optimización de velocidad y rendimiento", basico: "Estándar", estandar: "Avanzada", premium: "Ultra optimizada (90+)" },

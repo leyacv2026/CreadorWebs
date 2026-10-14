@@ -21,7 +21,7 @@ export const PackageComparator: React.FC<PackageComparatorProps> = ({ onSelectCo
     { id: 'extraPages', name: '2 Páginas adicionales de contenido', priceEur: 60, desc: 'Ideal para agregar blog, portfolio ampliado o página de preguntas frecuentes.' },
     { id: 'copywriting', name: 'Redacción persuasiva de textos y titulares', priceEur: 50, desc: 'Textos profesionales adaptados a tu cliente ideal si no los tienes redactados.' },
     { id: 'multilingual', name: 'Configuración Multi-idioma (Ej: Español / Inglés)', priceEur: 85, desc: 'Selector de banderas y estructura preparada para captar público internacional.' },
-    { id: 'monthlyCare', name: '1 Mes adicional de mantenimiento y soporte continuo', priceEur: 45, desc: 'Seguridad, copias de respaldo y ajustes menores post-lanzamiento.' }
+    { id: 'monthlyCare', name: 'Mantenimiento mensual (45€/mes por adelantado)', priceEur: 45, desc: 'Para si quieres hacer algún cambio de imágenes o de información dentro de la landing, solo tienes que pedirlo y nosotros nos encargamos.' }
   ];
 
   const toggleAddon = (id: string) => {
@@ -78,7 +78,10 @@ export const PackageComparator: React.FC<PackageComparatorProps> = ({ onSelectCo
                         {pkg.subtitle}
                       </span>
                       <span className="text-xl font-black text-slate-900 font-mono tabular-nums block mt-1">
-                        {pkg.priceEur}€
+                        {pkg.id === 'premium' ? 'Desde ' : ''}{pkg.priceEur.toLocaleString('es-ES')}€
+                      </span>
+                      <span className="text-[10px] text-teal-800 font-semibold block leading-tight mt-0.5">
+                        {pkg.depositEur}€ reserva + {pkg.finalPaymentEur}€ entrega
                       </span>
                       <button
                         onClick={() => setSelectedBasePkg(pkg.id as any)}

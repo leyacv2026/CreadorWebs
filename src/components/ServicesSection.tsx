@@ -87,22 +87,25 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectPackag
 
         {/* Section Subhead: Fiverr Packages */}
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-400/30 text-teal-300 text-xs font-bold mb-2">
-            <span>Paquetes de contratación transparente</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-500/15 border border-teal-400/40 text-teal-300 text-xs font-bold mb-3 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+            <span>Compromiso de exclusividad: Solo realizamos 1 web por pedido</span>
           </div>
           <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
             Tarifas y Paquetes de Trabajo
           </h3>
           <p className="text-sm text-slate-300 mt-2">
-            Estructurados con alcance exacto, sin sorpresas ni costes ocultos. Disponibles para encargar en Fiverr o mediante contratación directa.
+            Desarrollo dedicado con atención 100% individualizada. Sin plantillas genéricas ni saturación de proyectos: cuidamos cada detalle de tu web de principio a fin.
           </p>
         </div>
 
-        {/* 3 Fiverr-style Package Cards */}
+        {/* 3 Package Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
           {FIVERR_PACKAGES.map((pkg) => {
             const isPopular = pkg.popular;
-            const price = currency === 'EUR' ? `${pkg.priceEur}€` : `$${pkg.priceUsd}`;
+            const price = currency === 'EUR' 
+              ? `${pkg.id === 'premium' ? 'Desde ' : ''}${pkg.priceEur.toLocaleString('es-ES')}€` 
+              : `${pkg.id === 'premium' ? 'From ' : ''}$${pkg.priceUsd.toLocaleString('es-ES')}`;
 
             return (
               <div
@@ -134,18 +137,44 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectPackag
                   </div>
 
                   {/* Pricing line */}
-                  <div className="py-4 border-y border-white/10 my-4 flex items-baseline gap-2">
-                    <span className="text-4xl font-black text-white font-mono tabular-nums tracking-tight">
-                      {price}
-                    </span>
-                    <span className="text-xs text-slate-400">
-                      pago único / proyecto
-                    </span>
+                  <div className="py-4 border-y border-white/10 my-4">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-4xl font-black text-white font-mono tabular-nums tracking-tight">
+                        {price}
+                      </span>
+                      <span className="text-xs text-slate-400">
+                        precio del proyecto
+                      </span>
+                    </div>
+
+                    {/* Milestone payment badge */}
+                    <div className="mt-2.5 inline-flex flex-wrap items-center gap-1.5 px-3 py-1.5 rounded-lg bg-teal-500/15 border border-teal-400/30 text-teal-300 text-xs font-semibold">
+                      <span>Forma de pago:</span>
+                      <strong className="text-white font-mono">{pkg.depositEur}€ al pedir</strong>
+                      <span>+</span>
+                      <strong className="text-white font-mono">{pkg.finalPaymentEur}€ al finalizar</strong>
+                    </div>
                   </div>
 
-                  <p className="text-xs text-slate-300 leading-relaxed mb-6">
+                  <p className="text-xs text-slate-300 leading-relaxed mb-4">
                     {pkg.description}
                   </p>
+
+                  {/* Monthly maintenance option banner */}
+                  <div className="p-3.5 rounded-2xl bg-teal-950/50 border border-teal-400/40 mb-5">
+                    <div className="flex items-center justify-between text-xs font-bold text-teal-300 mb-1">
+                      <span>¿Mantenimiento mensual?</span>
+                      <span className="font-mono text-teal-200 bg-teal-900/80 px-2 py-0.5 rounded border border-teal-600/50 text-xs font-bold">
+                        {pkg.id === 'basico' ? '+45€ / mes' : 'Desde 250€ / mes'}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-300 leading-snug mt-1">
+                      {pkg.monthlyMaintenanceDesc}
+                    </p>
+                    <span className="inline-block mt-1 text-[10px] text-teal-400 font-medium">
+                      * Pago por adelantado cada mes. 1 web por pedido. Sin permanencia.
+                    </span>
+                  </div>
 
                   {/* Delivery & revisions meta */}
                   <div className="grid grid-cols-2 gap-2 p-3 rounded-xl bg-slate-900/60 border border-white/5 mb-6 text-xs text-slate-300">

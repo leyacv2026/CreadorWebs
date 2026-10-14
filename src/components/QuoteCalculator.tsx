@@ -20,6 +20,7 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig 
   const [hasPaymentGateway, setHasPaymentGateway] = useState<boolean>(false);
   const [hasMultilingual, setHasMultilingual] = useState<boolean>(false);
   const [isExpressDelivery, setIsExpressDelivery] = useState<boolean>(false);
+  const [hasMonthlyMaintenance, setHasMonthlyMaintenance] = useState<boolean>(false);
 
   // Form state
   const [clientName, setClientName] = useState('');
@@ -63,30 +64,60 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig 
       base = 120;
       days = 3;
     } else if (projectType === 'corporativa') {
-      base = 250 + Math.max(0, pagesCount - 3) * 20;
-      days = 6;
+      base = 1200 + Math.max(0, pagesCount - 5) * 50;
+      days = 7;
     } else if (projectType === 'ecommerce') {
-      base = 450 + Math.max(0, pagesCount - 5) * 25;
-      days = 10;
+      base = 2700 + Math.max(0, pagesCount - 10) * 75;
+      days = 12;
     } else {
-      base = 180 + Math.max(0, pagesCount - 3) * 15;
+      base = 650 + Math.max(0, pagesCount - 3) * 35;
       days = 5;
     }
 
-    if (hasCopywriting) base += 50;
-    if (hasSeoPro) base += 40;
-    if (hasBooking) base += 65;
-    if (hasPaymentGateway && projectType !== 'ecommerce') base += 80;
-    if (hasMultilingual) base += 75;
+    if (hasCopywriting) base += 80;
+    if (hasSeoPro) base += 60;
+    if (hasBooking) base += 90;
+    if (hasPaymentGateway && projectType !== 'ecommerce') base += 120;
+    if (hasMultilingual) base += 100;
     if (isExpressDelivery) {
-      base += 60;
-      days = Math.max(2, Math.floor(days * 0.6));
+      base += Math.round(base * 0.15);
+      days = Math.max(2, Math.floor(days * 0.65));
     }
 
-    return { totalEur: base, totalUsd: Math.round(base * 1.08), estimatedDays: days };
+    // Modalidad de pago fraccionado (anticipo vs entrega)
+    let deposit = 30;
+    let finalPay = 90;
+    let monthlyRate = 45;
+
+    if (projectType === 'landing') {
+      deposit = 30;
+      finalPay = base - 30;
+      monthlyRate = 45;
+    } else if (projectType === 'corporativa') {
+      deposit = 400;
+      finalPay = base - 400;
+      monthlyRate = 250;
+    } else if (projectType === 'ecommerce') {
+      deposit = 900;
+      finalPay = base - 900;
+      monthlyRate = 250;
+    } else {
+      deposit = Math.round(base * 0.35);
+      finalPay = base - deposit;
+      monthlyRate = 250;
+    }
+
+    return { 
+      totalEur: base, 
+      totalUsd: Math.round(base * 1.08), 
+      depositEur: deposit,
+      finalPaymentEur: finalPay,
+      monthlyFee: monthlyRate,
+      estimatedDays: days 
+    };
   };
 
-  const { totalEur, totalUsd, estimatedDays } = calculateTotal();
+  const { totalEur, totalUsd, depositEur, finalPaymentEur, monthlyFee, estimatedDays } = calculateTotal();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -107,7 +138,10 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig 
   const generateWhatsappMessage = () => {
     const text = `Hola CreadorWebs! He configurado un presupuesto en tu web:
 - Proyecto: ${projectType.toUpperCase()} (~${pagesCount} páginas)
-- Presupuesto estimado: ${totalEur}€ (~$${totalUsd} USD)
+- Precio estimado: ${totalEur}€ (~$${totalUsd} USD)
+- Forma de pago: ${depositEur}€ para pedir (anticipo) + ${finalPaymentEur}€ al finalizar la web
+- Exclusividad: Solo 1 web por pedido (dedicación 100% enfocada)
+- Mantenimiento mensual: ${hasMonthlyMaintenance ? (projectType === 'landing' ? `Sí (+45€/mes por adelantado: cambios de imágenes o info)` : `Sí (Desde +${monthlyFee}€/mes por adelantado: incluye supervisión de Agentes IA y cambios)`) : 'No contratado'}
 - Plazo estimado: ${estimatedDays} días
 - Nombre: ${clientName}
 - Correo: ${clientEmail}
@@ -237,6 +271,14 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig 
                     label: 'Entrega prioritaria express (plazo acelerado)',
                     price: '+60€',
                   },
+                  {
+                    checked: hasMonthlyMaintenance,
+                    setter: setHasMonthlyMaintenance,
+                    label: projectType === 'landing' 
+                      ? 'Mantenimiento mensual (+45€/mes por adelantado: cambios de imágenes o información cuando lo pidas)'
+                      : 'Mantenimiento mensual con Agentes IA (desde +250€/mes por adelantado: supervisión de IA, cambios y soporte)',
+                    price: projectType === 'landing' ? '+45€/mes' : '+250€/mes',
+                  },
                 ].map((feat, idx) => (
                   <label
                     key={idx}
@@ -282,13 +324,31 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig 
                 </span>
               </div>
 
+              {/* Milestone payment breakdown */}
+              <div className="p-3 rounded-xl bg-[#062436] border border-teal-400/30 text-xs space-y-1.5 my-3">
+                <div className="flex items-center justify-between text-slate-200">
+                  <span>Pago inicial (para pedir):</span>
+                  <span className="font-mono font-bold text-teal-300">{depositEur}€</span>
+                </div>
+                <div className="flex items-center justify-between text-slate-200">
+                  <span>Pago final (al terminar la web):</span>
+                  <span className="font-mono font-bold text-teal-300">{finalPaymentEur}€</span>
+                </div>
+                {hasMonthlyMaintenance && (
+                  <div className="flex items-center justify-between text-teal-200 pt-1.5 border-t border-white/10">
+                    <span>Mantenimiento mensual (por adelantado):</span>
+                    <span className="font-mono font-bold text-white">+{monthlyFee}€/mes</span>
+                  </div>
+                )}
+              </div>
+
               <div className="text-xs text-slate-300 border-t border-white/10 pt-3 flex items-center justify-between">
                 <span>Tiempo de entrega estimado:</span>
                 <span className="font-bold text-white font-mono">{estimatedDays} días hábiles</span>
               </div>
 
               <div className="mt-2 text-[11px] text-slate-400 italic">
-                * Tarifa transparente sujeta a confirmación final según especificaciones.
+                * Tarifa transparente. Solo realizamos 1 web por pedido con dedicación 100% exclusiva. Los mantenimientos mensuales se abonan por adelantado sin permanencia.
               </div>
             </div>
 
