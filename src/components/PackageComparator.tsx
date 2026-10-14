@@ -78,7 +78,7 @@ export const PackageComparator: React.FC<PackageComparatorProps> = ({ onSelectCo
                         {pkg.subtitle}
                       </span>
                       <span className="text-xl font-black text-slate-900 font-mono tabular-nums block mt-1">
-                        {pkg.id === 'premium' ? 'Desde ' : ''}{pkg.priceEur.toLocaleString('es-ES')}€
+                        {pkg.priceEur.toLocaleString('es-ES')}€
                       </span>
                       <span className="text-[10px] text-teal-800 font-semibold block leading-tight mt-0.5">
                         {pkg.depositEur}€ reserva + {pkg.finalPaymentEur}€ entrega

@@ -61,17 +61,17 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig 
     let days = 3;
 
     if (projectType === 'landing') {
-      base = 120;
-      days = 3;
+      base = 150;
+      days = 5;
     } else if (projectType === 'corporativa') {
-      base = 1200 + Math.max(0, pagesCount - 5) * 50;
-      days = 7;
+      base = 1500 + Math.max(0, pagesCount - 5) * 50;
+      days = 10;
     } else if (projectType === 'ecommerce') {
       base = 2700 + Math.max(0, pagesCount - 10) * 75;
-      days = 12;
+      days = 21;
     } else {
-      base = 650 + Math.max(0, pagesCount - 3) * 35;
-      days = 5;
+      base = 750 + Math.max(0, pagesCount - 3) * 35;
+      days = 7;
     }
 
     if (hasCopywriting) base += 80;
@@ -81,26 +81,26 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig 
     if (hasMultilingual) base += 100;
     if (isExpressDelivery) {
       base += Math.round(base * 0.15);
-      days = Math.max(2, Math.floor(days * 0.65));
+      days = Math.max(3, Math.floor(days * 0.65));
     }
 
     // Modalidad de pago fraccionado (anticipo vs entrega)
-    let deposit = 30;
-    let finalPay = 90;
+    let deposit = 50;
+    let finalPay = 100;
     let monthlyRate = 45;
 
     if (projectType === 'landing') {
-      deposit = 30;
-      finalPay = base - 30;
+      deposit = 50;
+      finalPay = base - 50;
       monthlyRate = 45;
     } else if (projectType === 'corporativa') {
-      deposit = 400;
-      finalPay = base - 400;
-      monthlyRate = 250;
+      deposit = 500;
+      finalPay = base - 500;
+      monthlyRate = 470;
     } else if (projectType === 'ecommerce') {
       deposit = 900;
       finalPay = base - 900;
-      monthlyRate = 250;
+      monthlyRate = 550;
     } else {
       deposit = Math.round(base * 0.35);
       finalPay = base - deposit;
@@ -276,8 +276,10 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig 
                     setter: setHasMonthlyMaintenance,
                     label: projectType === 'landing' 
                       ? 'Mantenimiento mensual (+45€/mes por adelantado: cambios de imágenes o información cuando lo pidas)'
-                      : 'Mantenimiento mensual con Agentes IA (desde +250€/mes por adelantado: supervisión de IA, cambios y soporte)',
-                    price: projectType === 'landing' ? '+45€/mes' : '+250€/mes',
+                      : projectType === 'corporativa'
+                      ? 'Mantenimiento mensual con Agentes IA (desde +470€/mes por adelantado: supervisión de IA, contenidos y soporte)'
+                      : 'Mantenimiento mensual avanzado (+550€/mes por adelantado: Agentes IA dedicados, catálogo y soporte prioritario)',
+                    price: projectType === 'landing' ? '+45€/mes' : projectType === 'corporativa' ? '+470€/mes' : '+550€/mes',
                   },
                 ].map((feat, idx) => (
                   <label

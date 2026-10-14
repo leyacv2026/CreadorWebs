@@ -104,8 +104,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectPackag
           {FIVERR_PACKAGES.map((pkg) => {
             const isPopular = pkg.popular;
             const price = currency === 'EUR' 
-              ? `${pkg.id === 'premium' ? 'Desde ' : ''}${pkg.priceEur.toLocaleString('es-ES')}€` 
-              : `${pkg.id === 'premium' ? 'From ' : ''}$${pkg.priceUsd.toLocaleString('es-ES')}`;
+              ? `${pkg.priceEur.toLocaleString('es-ES')}€` 
+              : `$${pkg.priceUsd.toLocaleString('es-ES')}`;
 
             return (
               <div
@@ -165,7 +165,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectPackag
                     <div className="flex items-center justify-between text-xs font-bold text-teal-300 mb-1">
                       <span>¿Mantenimiento mensual?</span>
                       <span className="font-mono text-teal-200 bg-teal-900/80 px-2 py-0.5 rounded border border-teal-600/50 text-xs font-bold">
-                        {pkg.id === 'basico' ? '+45€ / mes' : 'Desde 250€ / mes'}
+                        {pkg.id === 'basico' ? '+45€ / mes' : pkg.id === 'estandar' ? 'Desde 470€ / mes' : 'Desde 550€ / mes'}
                       </span>
                     </div>
                     <p className="text-[11px] text-slate-300 leading-snug mt-1">
