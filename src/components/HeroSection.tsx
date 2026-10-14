@@ -93,8 +93,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
                     <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
                   </div>
-                  <div className="bg-[#061b27] px-3 py-0.5 rounded text-[10px] text-teal-300 font-mono truncate max-w-[200px]">
-                    creadorwebs.dev/proyectos/{currentProject.id}
+                  <div className="bg-[#061b27] px-3 py-0.5 rounded text-[10px] text-teal-300 font-mono truncate max-w-[220px]">
+                    creador-webs.vercel.app/proyectos/{currentProject.id}
                   </div>
                   <div className="flex items-center gap-1">
                     <Laptop className="w-3.5 h-3.5 text-slate-400" />
