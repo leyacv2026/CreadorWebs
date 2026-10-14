@@ -69,7 +69,7 @@ export const PERSONAL_INFO = {
   email: "leyaraquelviajescuba@gmail.com",
   whatsappNumber: "34608180231",
   whatsappUrl: "https://wa.me/34608180231?text=Hola%20CreadorWebs,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto%20web",
-  linkedinUrl: "https://www.linkedin.com/in/yanishp-creador-p%C3%A1ginas-webs-8a9845443/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BGRs3cHWNQDeCS59KMOhgpw%3D%3D",
+  linkedinUrl: "https://www.linkedin.com/in/yanishp-creador-p%C3%A1ginas-webs",
   fiverrUrl: "https://www.fiverr.com/",
   fiverrUsername: "@creadorwebs",
   portraitImage: "/assets/images/yanis_portrait_1791922813892.jpg",
