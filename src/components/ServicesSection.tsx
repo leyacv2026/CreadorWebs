@@ -150,9 +150,18 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectPackag
                     {/* Milestone payment badge */}
                     <div className="mt-2.5 inline-flex flex-wrap items-center gap-1.5 px-3 py-1.5 rounded-lg bg-teal-500/15 border border-teal-400/30 text-teal-300 text-xs font-semibold">
                       <span>Forma de pago:</span>
-                      <strong className="text-white font-mono">{pkg.depositEur}€ al pedir</strong>
-                      <span>+</span>
-                      <strong className="text-white font-mono">{pkg.finalPaymentEur}€ al finalizar</strong>
+                      {pkg.id === 'basico' ? (
+                        <>
+                          <strong className="text-white font-mono">120€ pago único</strong>
+                          <span className="text-slate-300 text-[11px]">(o 60€ al pedir + 60€ al finalizar)</span>
+                        </>
+                      ) : (
+                        <>
+                          <strong className="text-white font-mono">{pkg.depositEur}€ al pedir</strong>
+                          <span>+</span>
+                          <strong className="text-white font-mono">{pkg.finalPaymentEur}€ al finalizar</strong>
+                        </>
+                      )}
                     </div>
                   </div>
 
@@ -163,16 +172,16 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectPackag
                   {/* Monthly maintenance option banner */}
                   <div className="p-3.5 rounded-2xl bg-teal-950/50 border border-teal-400/40 mb-5">
                     <div className="flex items-center justify-between text-xs font-bold text-teal-300 mb-1">
-                      <span>¿Mantenimiento mensual?</span>
+                      <span>{pkg.id === 'basico' ? '¿Quieres que te llevemos la landing?' : '¿Mantenimiento mensual?'}</span>
                       <span className="font-mono text-teal-200 bg-teal-900/80 px-2 py-0.5 rounded border border-teal-600/50 text-xs font-bold">
-                        {pkg.id === 'basico' ? '+45€ / mes' : pkg.id === 'estandar' ? 'Desde 470€ / mes' : 'Desde 550€ / mes'}
+                        {pkg.id === 'basico' ? 'Opción +45€ / mes' : pkg.id === 'estandar' ? 'Desde 470€ / mes' : 'Desde 550€ / mes'}
                       </span>
                     </div>
                     <p className="text-[11px] text-slate-300 leading-snug mt-1">
                       {pkg.monthlyMaintenanceDesc}
                     </p>
                     <span className="inline-block mt-1 text-[10px] text-teal-400 font-medium">
-                      * Pago por adelantado cada mes. 1 web por pedido. Sin permanencia.
+                      * Pago por adelantado cada mes. Opción 100% voluntaria y sin permanencia.
                     </span>
                   </div>
 

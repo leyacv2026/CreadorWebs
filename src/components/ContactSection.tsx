@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Phone, Linkedin, MessageSquare, ExternalLink, ArrowRight, Sparkles } from 'lucide-react';
+import { Linkedin, MessageSquare, ExternalLink, ArrowRight, Sparkles } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 interface ContactSectionProps {
@@ -31,21 +31,21 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuote }) =
               </p>
 
               {/* Direct Channels List */}
-              <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+              <div className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3.5 text-xs">
                 
-                {/* LinkedIn */}
+                {/* WhatsApp */}
                 <a
-                  href={PERSONAL_INFO.linkedinUrl}
+                  href={PERSONAL_INFO.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center gap-3 transition-colors group"
                 >
-                  <div className="w-9 h-9 rounded-xl bg-[#0077b5] text-white flex items-center justify-center shrink-0">
-                    <Linkedin className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-xl bg-[#25D366] text-white flex items-center justify-center shrink-0">
+                    <MessageSquare className="w-4 h-4" />
                   </div>
                   <div className="truncate">
-                    <span className="font-bold text-white block truncate">LinkedIn Oficial</span>
-                    <span className="text-slate-300 text-[11px] block truncate">Conectar con CreadorWebs</span>
+                    <span className="font-bold text-white block truncate">WhatsApp</span>
+                    <span className="text-slate-300 text-[11px] block truncate">Abrir chat directo</span>
                   </div>
                   <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-teal-300 ml-auto shrink-0" />
                 </a>
@@ -61,40 +61,25 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuote }) =
                     fi
                   </div>
                   <div className="truncate">
-                    <span className="font-bold text-white block truncate">Canal de Fiverr</span>
-                    <span className="text-slate-300 text-[11px] block truncate">Contratar con protección</span>
+                    <span className="font-bold text-white block truncate">Fiverr Oficial</span>
+                    <span className="text-slate-300 text-[11px] block truncate">Contratar con garantía</span>
                   </div>
                   <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-teal-300 ml-auto shrink-0" />
                 </a>
 
-                {/* Email */}
+                {/* LinkedIn */}
                 <a
-                  href={`mailto:${PERSONAL_INFO.email}`}
-                  className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center gap-3 transition-colors group"
-                >
-                  <div className="w-9 h-9 rounded-xl bg-teal-500 text-[#031d2c] flex items-center justify-center shrink-0">
-                    <Mail className="w-4 h-4" />
-                  </div>
-                  <div className="truncate">
-                    <span className="font-bold text-white block truncate">Correo Electrónico</span>
-                    <span className="text-slate-300 text-[11px] block truncate">Enviar mensaje directo</span>
-                  </div>
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-teal-300 ml-auto shrink-0" />
-                </a>
-
-                {/* WhatsApp */}
-                <a
-                  href={PERSONAL_INFO.whatsappUrl}
+                  href={PERSONAL_INFO.linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center gap-3 transition-colors group"
                 >
-                  <div className="w-9 h-9 rounded-xl bg-[#25D366] text-white flex items-center justify-center shrink-0">
-                    <MessageSquare className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-xl bg-[#0077b5] text-white flex items-center justify-center shrink-0">
+                    <Linkedin className="w-4 h-4" />
                   </div>
                   <div className="truncate">
-                    <span className="font-bold text-white block truncate">WhatsApp Directo</span>
-                    <span className="text-slate-300 text-[11px] block truncate">Iniciar conversación por chat</span>
+                    <span className="font-bold text-white block truncate">LinkedIn</span>
+                    <span className="text-slate-300 text-[11px] block truncate">Perfil profesional</span>
                   </div>
                   <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-teal-300 ml-auto shrink-0" />
                 </a>

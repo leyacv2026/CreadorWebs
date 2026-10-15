@@ -35,8 +35,13 @@ export const TopBar: React.FC<TopBarProps> = ({ onOpenQuote }) => {
           onClick={(e) => handleNavClick(e, '#inicio')}
           className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 rounded-lg py-1"
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#16d5d0] to-[#00aaa9] text-[#031d2c] font-black text-lg flex items-center justify-center shadow-md shadow-teal-500/20 group-hover:scale-105 transition-transform">
-            CW
+          <div className="w-10 h-10 rounded-xl overflow-hidden border border-teal-400/40 shadow-md shadow-teal-500/20 group-hover:scale-105 transition-transform bg-[#021824] shrink-0">
+            <img
+              src={PERSONAL_INFO.logoImage}
+              alt="Logo CreadorWebs"
+              className="w-full h-full object-cover"
+              referrerPolicy="no-referrer"
+            />
           </div>
           <div className="leading-tight">
             <span className="text-lg font-extrabold tracking-tight text-white group-hover:text-teal-300 transition-colors whitespace-nowrap">

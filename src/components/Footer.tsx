@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linkedin, Mail, MessageSquare, ExternalLink, Heart } from 'lucide-react';
+import { Linkedin, MessageSquare, ExternalLink, Heart } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 export const Footer: React.FC = () => {
@@ -11,8 +11,13 @@ export const Footer: React.FC = () => {
           {/* Brand */}
           <div className="text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-teal-400 text-[#031d2c] font-black text-sm flex items-center justify-center">
-                CW
+              <div className="w-8 h-8 rounded-lg overflow-hidden border border-teal-400/40 bg-[#021824] flex items-center justify-center shrink-0">
+                <img
+                  src={PERSONAL_INFO.logoImage}
+                  alt="Logo CreadorWebs"
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
               </div>
               <span className="text-base font-extrabold text-white">
                 {PERSONAL_INFO.name}
@@ -53,14 +58,6 @@ export const Footer: React.FC = () => {
               aria-label="WhatsApp"
             >
               <MessageSquare className="w-4 h-4" />
-            </a>
-
-            <a
-              href={`mailto:${PERSONAL_INFO.email}`}
-              className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors"
-              aria-label="Enviar correo"
-            >
-              <Mail className="w-4 h-4" />
             </a>
           </div>
 

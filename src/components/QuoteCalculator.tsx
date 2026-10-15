@@ -61,7 +61,7 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig 
     let days = 3;
 
     if (projectType === 'landing') {
-      base = 150;
+      base = 120;
       days = 5;
     } else if (projectType === 'corporativa') {
       base = 1500 + Math.max(0, pagesCount - 5) * 50;
@@ -85,13 +85,13 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig 
     }
 
     // Modalidad de pago fraccionado (anticipo vs entrega)
-    let deposit = 50;
-    let finalPay = 100;
+    let deposit = 60;
+    let finalPay = 60;
     let monthlyRate = 45;
 
     if (projectType === 'landing') {
-      deposit = 50;
-      finalPay = base - 50;
+      deposit = 60;
+      finalPay = base - 60;
       monthlyRate = 45;
     } else if (projectType === 'corporativa') {
       deposit = 500;
@@ -139,9 +139,9 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig 
     const text = `Hola CreadorWebs! He configurado un presupuesto en tu web:
 - Proyecto: ${projectType.toUpperCase()} (~${pagesCount} páginas)
 - Precio estimado: ${totalEur}€ (~$${totalUsd} USD)
-- Forma de pago: ${depositEur}€ para pedir (anticipo) + ${finalPaymentEur}€ al finalizar la web
+- Forma de pago: ${projectType === 'landing' ? `120€ pago único (o fraccionado: ${depositEur}€ reserva + ${finalPaymentEur}€ entrega)` : `${depositEur}€ para pedir (anticipo) + ${finalPaymentEur}€ al finalizar la web`}
 - Exclusividad: Solo 1 web por pedido (dedicación 100% enfocada)
-- Mantenimiento mensual: ${hasMonthlyMaintenance ? (projectType === 'landing' ? `Sí (+45€/mes por adelantado: cambios de imágenes o info)` : `Sí (Desde +${monthlyFee}€/mes por adelantado: incluye supervisión de Agentes IA y cambios)`) : 'No contratado'}
+- Mantenimiento mensual: ${hasMonthlyMaintenance ? (projectType === 'landing' ? `Sí (+45€/mes por adelantado: que me llevéis la landing con fotos y textos)` : `Sí (Desde +${monthlyFee}€/mes por adelantado: incluye supervisión de Agentes IA y cambios)`) : 'No contratado'}
 - Plazo estimado: ${estimatedDays} días
 - Nombre: ${clientName}
 - Correo: ${clientEmail}
@@ -275,7 +275,7 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig 
                     checked: hasMonthlyMaintenance,
                     setter: setHasMonthlyMaintenance,
                     label: projectType === 'landing' 
-                      ? 'Mantenimiento mensual (+45€/mes por adelantado: cambios de imágenes o información cuando lo pidas)'
+                      ? 'Opción: Llevar la landing (+45€/mes por adelantado: nos encargamos de fotos, textos y cambios)'
                       : projectType === 'corporativa'
                       ? 'Mantenimiento mensual con Agentes IA (desde +470€/mes por adelantado: supervisión de IA, contenidos y soporte)'
                       : 'Mantenimiento mensual avanzado (+550€/mes por adelantado: Agentes IA dedicados, catálogo y soporte prioritario)',
@@ -328,17 +328,26 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig 
 
               {/* Milestone payment breakdown */}
               <div className="p-3 rounded-xl bg-[#062436] border border-teal-400/30 text-xs space-y-1.5 my-3">
-                <div className="flex items-center justify-between text-slate-200">
-                  <span>Pago inicial (para pedir):</span>
-                  <span className="font-mono font-bold text-teal-300">{depositEur}€</span>
-                </div>
-                <div className="flex items-center justify-between text-slate-200">
-                  <span>Pago final (al terminar la web):</span>
-                  <span className="font-mono font-bold text-teal-300">{finalPaymentEur}€</span>
-                </div>
+                {projectType === 'landing' ? (
+                  <div className="flex items-center justify-between text-slate-200">
+                    <span>Modalidad de pago:</span>
+                    <span className="font-mono font-bold text-teal-300">120€ pago único (o 60€ + 60€)</span>
+                  </div>
+                ) : (
+                  <>
+                    <div className="flex items-center justify-between text-slate-200">
+                      <span>Pago inicial (para pedir):</span>
+                      <span className="font-mono font-bold text-teal-300">{depositEur}€</span>
+                    </div>
+                    <div className="flex items-center justify-between text-slate-200">
+                      <span>Pago final (al terminar la web):</span>
+                      <span className="font-mono font-bold text-teal-300">{finalPaymentEur}€</span>
+                    </div>
+                  </>
+                )}
                 {hasMonthlyMaintenance && (
                   <div className="flex items-center justify-between text-teal-200 pt-1.5 border-t border-white/10">
-                    <span>Mantenimiento mensual (por adelantado):</span>
+                    <span>{projectType === 'landing' ? 'Llevar tu landing mes a mes:' : 'Mantenimiento mensual (por adelantado):'}</span>
                     <span className="font-mono font-bold text-white">+{monthlyFee}€/mes</span>
                   </div>
                 )}
