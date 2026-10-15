@@ -75,8 +75,8 @@ export const PERSONAL_INFO = {
   whatsappUrl: "https://wa.me/34608180231?text=Hola%20CreadorWebs,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto%20web",
   linkedinUrl: "https://www.linkedin.com/in/yanishp-creador-p%C3%A1ginas-webs",
   websiteUrl: "https://creador-webs.vercel.app",
-  fiverrUrl: "https://www.fiverr.com/",
-  fiverrUsername: "@creadorwebs",
+  fiverrUrl: "https://es.fiverr.com/creador_webs/creador-de-paginas-webs",
+  fiverrUsername: "@creador_webs",
   portraitImage: "/assets/images/yanis_portrait_1791922813892.jpg",
   workspaceImage: "/assets/images/workspace_desk_1791922815468.jpg",
   motto: "Tu idea, mi código, tu web ♡",
@@ -168,7 +168,7 @@ export const FIVERR_PACKAGES: FiverrPackage[] = [
       revisionsCount: "2",
       supportDays: 7
     },
-    fiverrGigUrl: "https://www.fiverr.com/"
+    fiverrGigUrl: "https://es.fiverr.com/creador_webs/creador-de-paginas-webs"
   },
   {
     id: "estandar",
@@ -211,7 +211,7 @@ export const FIVERR_PACKAGES: FiverrPackage[] = [
       revisionsCount: "5",
       supportDays: 15
     },
-    fiverrGigUrl: "https://www.fiverr.com/"
+    fiverrGigUrl: "https://es.fiverr.com/creador_webs/creador-de-paginas-webs"
   },
   {
     id: "premium",
@@ -254,7 +254,7 @@ export const FIVERR_PACKAGES: FiverrPackage[] = [
       revisionsCount: "Ilimitadas",
       supportDays: 30
     },
-    fiverrGigUrl: "https://www.fiverr.com/"
+    fiverrGigUrl: "https://es.fiverr.com/creador_webs/creador-de-paginas-webs"
   }
 ];
 
