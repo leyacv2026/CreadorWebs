@@ -1,0 +1,8 @@
+# robots.txt para CreadorWebs
+# https://creador-webs.vercel.app
+
+User-agent: *
+Allow: /
+
+# Directiva para buscadores
+Sitemap: https://creador-webs.vercel.app/sitemap.xml
