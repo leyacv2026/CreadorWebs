@@ -45,6 +45,13 @@ export const TopBar: React.FC<TopBarProps> = ({ currentPath = '/', onNavigate, o
               alt="Logo CreadorWebs"
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
+              onError={(e) => {
+                const target = e.currentTarget;
+                if (!target.dataset.tried) {
+                  target.dataset.tried = 'true';
+                  target.src = '/logo.jpg';
+                }
+              }}
             />
           </div>
           <div className="leading-tight">

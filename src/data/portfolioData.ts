@@ -77,7 +77,7 @@ export const PERSONAL_INFO = {
   websiteUrl: "https://creador-webs.vercel.app",
   fiverrUrl: "https://es.fiverr.com/creador_webs/creador-de-paginas-webs",
   fiverrUsername: "@creador_webs",
-  logoImage: "/src/assets/images/creadorwebs_logo_1792078224212.jpg",
+  logoImage: "/assets/images/creadorwebs_logo.jpg",
   portraitImage: "/assets/images/yanis_portrait_1791922813892.jpg",
   workspaceImage: "/assets/images/workspace_desk_1791922815468.jpg",
   motto: "Tu idea, mi código, tu web ♡",

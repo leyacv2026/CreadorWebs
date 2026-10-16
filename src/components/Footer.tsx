@@ -21,6 +21,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   alt="Logo CreadorWebs"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.dataset.tried) {
+                      target.dataset.tried = 'true';
+                      target.src = '/logo.jpg';
+                    }
+                  }}
                 />
               </div>
               <span className="text-base font-extrabold text-white">
