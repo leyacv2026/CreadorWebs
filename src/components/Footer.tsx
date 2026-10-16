@@ -2,7 +2,11 @@ import React from 'react';
 import { Linkedin, MessageSquare, ExternalLink, Heart } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onNavigate?: (path: string) => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer className="bg-[#021824] text-slate-400 text-xs border-t border-white/5 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -61,6 +65,82 @@ export const Footer: React.FC = () => {
             </a>
           </div>
 
+        </div>
+
+        {/* Navigation & Services internal links for Google SEO */}
+        <div className="py-6 border-b border-white/10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 text-xs font-medium">
+          <a
+            href="/"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault();
+                onNavigate('/');
+              }
+            }}
+            className="hover:text-teal-300 transition-colors"
+          >
+            · Inicio
+          </a>
+          <a
+            href="/servicios/landing-pages"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault();
+                onNavigate('/servicios/landing-pages');
+              }
+            }}
+            className="hover:text-teal-300 transition-colors"
+          >
+            · Landing Pages (250€)
+          </a>
+          <a
+            href="/servicios/webs-corporativas"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault();
+                onNavigate('/servicios/webs-corporativas');
+              }
+            }}
+            className="hover:text-teal-300 transition-colors"
+          >
+            · Webs Empresas (700€)
+          </a>
+          <a
+            href="/servicios/tiendas-online"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault();
+                onNavigate('/servicios/tiendas-online');
+              }
+            }}
+            className="hover:text-teal-300 transition-colors"
+          >
+            · Tiendas Online (1.200€)
+          </a>
+          <a
+            href="/portafolio"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault();
+                onNavigate('/portafolio');
+              }
+            }}
+            className="hover:text-teal-300 transition-colors"
+          >
+            · Portafolio
+          </a>
+          <a
+            href="/contacto"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault();
+                onNavigate('/contacto');
+              }
+            }}
+            className="hover:text-teal-300 transition-colors"
+          >
+            · Contacto &amp; Cotizador
+          </a>
         </div>
 
         {/* Bottom copyright & legal links */}

@@ -81,7 +81,7 @@ export const PackageComparator: React.FC<PackageComparatorProps> = ({ onSelectCo
                         {pkg.priceEur.toLocaleString('es-ES')}€
                       </span>
                       <span className="text-[10px] text-teal-800 font-semibold block leading-tight mt-0.5">
-                        {pkg.id === 'basico' ? '120€ pago único (o 60€ + 60€)' : `${pkg.depositEur}€ reserva + ${pkg.finalPaymentEur}€ entrega`}
+                        {pkg.depositEur}€ reserva + {pkg.finalPaymentEur}€ entrega
                       </span>
                       <button
                         onClick={() => setSelectedBasePkg(pkg.id as any)}

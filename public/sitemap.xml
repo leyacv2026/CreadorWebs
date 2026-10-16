@@ -1,15 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <!-- Página de Inicio Principal -->
   <url>
     <loc>https://creador-webs.vercel.app/</loc>
-    <lastmod>2026-10-15</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://creador-webs.vercel.app/og-image.jpg</image:loc>
       <image:title>CreadorWebs | Diseño Web y Desarrollo Profesional</image:title>
-      <image:caption>Diseño y desarrollo de sitios web modernos, tiendas online y landing pages profesionales.</image:caption>
+      <image:caption>Diseño y desarrollo de sitios web modernos, tiendas online y landing pages profesionales con Agentes IA.</image:caption>
     </image:image>
+  </url>
+
+  <!-- Página Dedicada: Landing Pages de Alta Conversión -->
+  <url>
+    <loc>https://creador-webs.vercel.app/servicios/landing-pages</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://creador-webs.vercel.app/og-image.jpg</image:loc>
+      <image:title>Diseño de Landing Pages Profesionales | CreadorWebs</image:title>
+      <image:caption>Landing pages de alto impacto por 250€ (125€ al pedir + 125€ al finalizar). Opción de mantenimiento y gestión por 45€/mes.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Página Dedicada: Webs Corporativas para Empresas -->
+  <url>
+    <loc>https://creador-webs.vercel.app/servicios/webs-corporativas</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://creador-webs.vercel.app/og-image.jpg</image:loc>
+      <image:title>Desarrollo de Páginas Web Corporativas | CreadorWebs</image:title>
+      <image:caption>Sitios corporativos para empresas y pymes. Hasta 5 páginas completas, hosting y soporte con Agentes IA.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Página Dedicada: Tiendas Online (E-Commerce) -->
+  <url>
+    <loc>https://creador-webs.vercel.app/servicios/tiendas-online</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://creador-webs.vercel.app/og-image.jpg</image:loc>
+      <image:title>Tiendas Online y Comercio Electrónico | CreadorWebs</image:title>
+      <image:caption>E-Commerce profesional con catálogo de productos, pasarela de pago Stripe/PayPal y alta velocidad.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Página Dedicada: Portafolio y Casos de Estudio -->
+  <url>
+    <loc>https://creador-webs.vercel.app/portafolio</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://creador-webs.vercel.app/og-image.jpg</image:loc>
+      <image:title>Portafolio de Proyectos Web | CreadorWebs</image:title>
+      <image:caption>Muestrario de casos de éxito reales: EcoVida, Belleza Natural y La Terraza.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Página Dedicada: Contacto y Cotizador -->
+  <url>
+    <loc>https://creador-webs.vercel.app/contacto</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

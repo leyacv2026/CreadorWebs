@@ -3,26 +3,30 @@ import { Menu, X, ArrowUpRight, Sparkles } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 interface TopBarProps {
+  currentPath?: string;
+  onNavigate?: (path: string) => void;
   onOpenQuote: () => void;
 }
 
-export const TopBar: React.FC<TopBarProps> = ({ onOpenQuote }) => {
+export const TopBar: React.FC<TopBarProps> = ({ currentPath = '/', onNavigate, onOpenQuote }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { label: 'Inicio', href: '#inicio' },
-    { label: 'Sobre mí', href: '#sobre-mi' },
-    { label: 'Servicios', href: '#servicios' },
-    { label: 'Comparador', href: '#comparador' },
-    { label: 'Portafolio', href: '#portafolio' },
+    { label: 'Inicio', path: '/' },
+    { label: 'Landing Pages', path: '/servicios/landing-pages' },
+    { label: 'Webs Empresas', path: '/servicios/webs-corporativas' },
+    { label: 'Tiendas Online', path: '/servicios/tiendas-online' },
+    { label: 'Portafolio', path: '/portafolio' },
+    { label: 'Contacto', path: '/contacto' },
   ];
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (onNavigate) {
+      onNavigate(path);
+    } else {
+      window.location.pathname = path;
     }
   };
 
@@ -31,8 +35,8 @@ export const TopBar: React.FC<TopBarProps> = ({ onOpenQuote }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-8">
         {/* Zone 1: Brand Wordmark (Single text element) */}
         <a 
-          href="#inicio" 
-          onClick={(e) => handleNavClick(e, '#inicio')}
+          href="/" 
+          onClick={(e) => handleLinkClick(e, '/')}
           className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 rounded-lg py-1"
         >
           <div className="w-10 h-10 rounded-xl overflow-hidden border border-teal-400/40 shadow-md shadow-teal-500/20 group-hover:scale-105 transition-transform bg-[#021824] shrink-0">
@@ -53,18 +57,25 @@ export const TopBar: React.FC<TopBarProps> = ({ onOpenQuote }) => {
           </div>
         </a>
 
-        {/* Zone 2: 4-5 Navigation links */}
-        <nav className="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-200" aria-label="Navegación principal">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => handleNavClick(e, link.href)}
-              className="hover:text-teal-300 transition-colors py-1 whitespace-nowrap shrink-0 hover:underline hover:underline-offset-8 decoration-teal-400 decoration-2"
-            >
-              {link.label}
-            </a>
-          ))}
+        {/* Zone 2: Navigation links */}
+        <nav className="hidden lg:flex items-center gap-6 text-xs font-bold text-slate-200" aria-label="Navegación principal">
+          {navLinks.map((link) => {
+            const isActive = currentPath === link.path;
+            return (
+              <a
+                key={link.path}
+                href={link.path}
+                onClick={(e) => handleLinkClick(e, link.path)}
+                className={`py-1 whitespace-nowrap transition-colors hover:text-teal-300 ${
+                  isActive
+                    ? 'text-teal-300 underline underline-offset-8 decoration-teal-400 decoration-2 font-black'
+                    : 'text-slate-300'
+                }`}
+              >
+                {link.label}
+              </a>
+            );
+          })}
         </nav>
 
         {/* Zone 3: 1 Primary Action */}
@@ -93,10 +104,14 @@ export const TopBar: React.FC<TopBarProps> = ({ onOpenQuote }) => {
         <div className="md:hidden bg-[#062b40] border-b border-white/10 px-4 pt-3 pb-6 space-y-3">
           {navLinks.map((link) => (
             <a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => handleNavClick(e, link.href)}
-              className="block px-3 py-2 text-base font-semibold text-slate-200 hover:text-teal-300 hover:bg-white/5 rounded-lg transition-colors"
+              key={link.path}
+              href={link.path}
+              onClick={(e) => handleLinkClick(e, link.path)}
+              className={`block px-3 py-2 text-base font-semibold rounded-lg transition-colors ${
+                currentPath === link.path
+                  ? 'text-teal-300 bg-white/10 font-bold'
+                  : 'text-slate-200 hover:text-teal-300 hover:bg-white/5'
+              }`}
             >
               {link.label}
             </a>

@@ -4,9 +4,10 @@ import { SERVICES_LIST, FIVERR_PACKAGES, FiverrPackage } from '../data/portfolio
 
 interface ServicesSectionProps {
   onSelectPackageForQuote: (pkg: FiverrPackage) => void;
+  onViewServicePage?: (serviceSlug: 'landing-pages' | 'webs-corporativas' | 'tiendas-online') => void;
 }
 
-export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectPackageForQuote }) => {
+export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectPackageForQuote, onViewServicePage }) => {
   const [currency, setCurrency] = useState<'EUR' | 'USD'>('EUR');
 
   return (
@@ -150,18 +151,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectPackag
                     {/* Milestone payment badge */}
                     <div className="mt-2.5 inline-flex flex-wrap items-center gap-1.5 px-3 py-1.5 rounded-lg bg-teal-500/15 border border-teal-400/30 text-teal-300 text-xs font-semibold">
                       <span>Forma de pago:</span>
-                      {pkg.id === 'basico' ? (
-                        <>
-                          <strong className="text-white font-mono">120€ pago único</strong>
-                          <span className="text-slate-300 text-[11px]">(o 60€ al pedir + 60€ al finalizar)</span>
-                        </>
-                      ) : (
-                        <>
-                          <strong className="text-white font-mono">{pkg.depositEur}€ al pedir</strong>
-                          <span>+</span>
-                          <strong className="text-white font-mono">{pkg.finalPaymentEur}€ al finalizar</strong>
-                        </>
-                      )}
+                      <strong className="text-white font-mono">{pkg.depositEur}€ al pedir</strong>
+                      <span>+</span>
+                      <strong className="text-white font-mono">{pkg.finalPaymentEur}€ al finalizar</strong>
                     </div>
                   </div>
 
@@ -172,9 +164,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectPackag
                   {/* Monthly maintenance option banner */}
                   <div className="p-3.5 rounded-2xl bg-teal-950/50 border border-teal-400/40 mb-5">
                     <div className="flex items-center justify-between text-xs font-bold text-teal-300 mb-1">
-                      <span>{pkg.id === 'basico' ? '¿Quieres que te llevemos la landing?' : '¿Mantenimiento mensual?'}</span>
+                      <span>{pkg.id === 'basico' ? '¿Quieres que te llevemos la landing?' : 'Mantenimiento mensual opcional'}</span>
                       <span className="font-mono text-teal-200 bg-teal-900/80 px-2 py-0.5 rounded border border-teal-600/50 text-xs font-bold">
-                        {pkg.id === 'basico' ? 'Opción +45€ / mes' : pkg.id === 'estandar' ? 'Desde 470€ / mes' : 'Desde 550€ / mes'}
+                        {`+${pkg.monthlyMaintenanceEur}€ / mes`}
                       </span>
                     </div>
                     <p className="text-[11px] text-slate-300 leading-snug mt-1">
@@ -224,6 +216,20 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectPackag
                     <span>Cotizar este paquete</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
+
+                  {onViewServicePage && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const slug = pkg.id === 'basico' ? 'landing-pages' : pkg.id === 'estandar' ? 'webs-corporativas' : 'tiendas-online';
+                        onViewServicePage(slug);
+                      }}
+                      className="w-full py-2.5 px-4 rounded-xl font-bold text-xs text-teal-300 hover:text-white hover:bg-teal-500/10 border border-teal-500/30 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                    >
+                      <span>Ver página completa y detalles</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  )}
 
                   <a
                     href={pkg.fiverrGigUrl}
