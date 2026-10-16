@@ -63,10 +63,18 @@ export const Footer: React.FC = () => {
 
         </div>
 
-        {/* Bottom copyright & tagline */}
+        {/* Bottom copyright & legal links */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left text-[11px] text-slate-500">
-          <div>
-            © {new Date().getFullYear()} {PERSONAL_INFO.name}. Todos los derechos reservados.
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-1">
+            <span>© {new Date().getFullYear()} {PERSONAL_INFO.name}. Todos los derechos reservados.</span>
+            <span className="hidden sm:inline text-slate-700">•</span>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent('open-cookie-settings'))}
+              className="text-slate-400 hover:text-teal-300 transition-colors cursor-pointer underline underline-offset-2"
+            >
+              Protección de datos &amp; Cookies
+            </button>
           </div>
           <div className="flex items-center gap-1.5 text-slate-400 font-medium">
             <span>{PERSONAL_INFO.motto}</span>

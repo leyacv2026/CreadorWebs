@@ -10,6 +10,7 @@ import { TestimonialsSection } from './components/TestimonialsSection';
 import { FaqSection } from './components/FaqSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
+import { CookieConsent } from './components/CookieConsent';
 import { FiverrPackage, PortfolioProject } from './data/portfolioData';
 
 export default function App() {
@@ -89,6 +90,9 @@ export default function App() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Cookies & Protección de Clientes (RGPD) */}
+      <CookieConsent />
     </div>
   );
 }
