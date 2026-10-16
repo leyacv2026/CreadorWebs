@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Check, Clock, RotateCcw, ArrowRight, ExternalLink, Sparkles, Layers, ShieldCheck } from 'lucide-react';
+import { Check, Clock, RotateCcw, ArrowRight, ExternalLink, Sparkles, Layers, ShieldCheck, MessageSquare } from 'lucide-react';
 import { SERVICES_LIST, FIVERR_PACKAGES, FiverrPackage } from '../data/portfolioData';
 
 interface ServicesSectionProps {
@@ -213,7 +213,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectPackag
                         : 'bg-white hover:bg-slate-100 text-slate-950'
                     }`}
                   >
-                    <span>Cotizar este paquete</span>
+                    <span>Ver presupuesto</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
 
@@ -232,13 +232,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectPackag
                   )}
 
                   <a
-                    href={pkg.fiverrGigUrl}
+                    href={`https://wa.me/34608180231?text=${encodeURIComponent(`Hola CreadorWebs, me interesa el paquete ${pkg.name}. ¿Podrías darme más información?`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-2.5 px-4 rounded-xl font-bold text-xs text-slate-300 hover:text-white hover:bg-white/5 border border-white/10 flex items-center justify-center gap-1.5 transition-colors"
+                    className="w-full py-2.5 px-4 rounded-xl font-bold text-xs text-emerald-300 hover:text-white hover:bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center gap-1.5 transition-colors"
                   >
-                    <span>Pedir por Fiverr</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    <MessageSquare className="w-3.5 h-3.5" />
+                    <span>Consultar por WhatsApp</span>
                   </a>
                 </div>
               </div>

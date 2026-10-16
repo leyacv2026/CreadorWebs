@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linkedin, MessageSquare, ExternalLink, ArrowRight, Sparkles } from 'lucide-react';
+import { Linkedin, MessageSquare, ExternalLink, ArrowRight, Sparkles, ShieldCheck } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 interface ContactSectionProps {
@@ -50,22 +50,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuote }) =
                   <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-teal-300 ml-auto shrink-0" />
                 </a>
 
-                {/* Fiverr */}
-                <a
-                  href={PERSONAL_INFO.fiverrUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center gap-3 transition-colors group"
-                >
-                  <div className="w-9 h-9 rounded-xl bg-[#1dbf73] text-white flex items-center justify-center shrink-0 font-bold text-xs">
-                    fi
+                {/* Trato Directo */}
+                <div className="p-3.5 rounded-2xl bg-teal-500/10 border border-teal-500/25 flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-teal-400 text-slate-950 flex items-center justify-center shrink-0">
+                    <ShieldCheck className="w-5 h-5" />
                   </div>
                   <div className="truncate">
-                    <span className="font-bold text-white block truncate">Fiverr Oficial</span>
-                    <span className="text-slate-300 text-[11px] block truncate">Contratar con garantía</span>
+                    <span className="font-bold text-teal-200 block truncate">Trato Directo 100%</span>
+                    <span className="text-slate-300 text-[11px] block truncate">Sin intermediarios ni comisiones</span>
                   </div>
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-teal-300 ml-auto shrink-0" />
-                </a>
+                </div>
 
                 {/* LinkedIn */}
                 <a

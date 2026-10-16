@@ -90,17 +90,37 @@ export const PERSONAL_INFO = {
     "Trabajamos cada proyecto prestando máxima atención a tu objetivo comercial, la jerarquía visual y la adaptabilidad fluida en ordenadores, tabletas y teléfonos móviles."
   ],
   stats: [
-    { label: "Calificación Fiverr", value: "5.0 ★" },
-    { label: "Proyectos entregados", value: "45+" },
-    { label: "Tiempo de respuesta", value: "< 1 hora" },
-    { label: "Garantía de satisfacción", value: "100%" }
+    { 
+      label: "Pago fraccionado 50/50", 
+      value: "0% Riesgo", 
+      desc: "50% al pedir y 50% al finalizar. No pagas la totalidad sin ver tu web terminada.",
+      highlight: "Seguridad total"
+    },
+    { 
+      label: "Entrega súper ágil", 
+      value: "Desde 3 días", 
+      desc: "Desarrollo dinámico y sin demoras para lanzar tu negocio cuanto antes.",
+      highlight: "Rapidez garantizada"
+    },
+    { 
+      label: "Diseño 100% a medida", 
+      value: "Alta conversión", 
+      desc: "Sin plantillas genéricas. Una web moderna pensada para convertir visitas en ventas.",
+      highlight: "Diseño exclusivo"
+    },
+    { 
+      label: "Google SEO & Móvil", 
+      value: "Posicionamiento", 
+      desc: "Velocidad de carga ultra rápida y estructura optimizada para motores de búsqueda.",
+      highlight: "Visibilidad real"
+    }
   ],
   guarantees: [
     { title: "Diseño atractivo", desc: "Coherente con tu identidad de marca y pensado para retener visitas." },
     { title: "Optimización SEO", desc: "Estructura semántica preparada para motores de búsqueda como Google." },
     { title: "Velocidad y rendimiento", desc: "Carga ultrarrápida en móviles y ordenadores sin retrasos." },
     { title: "Comunicación cercana", desc: "Trato directo, claro y con actualizaciones constantes en cada fase." },
-    { title: "Entrega a tiempo", desc: "Compromiso estricto de plazos en todos los pedidos de Fiverr y directos." }
+    { title: "Entrega a tiempo", desc: "Compromiso estricto de plazos y seguimiento continuo en cada entrega." }
   ]
 };
 
@@ -370,7 +390,7 @@ export const TESTIMONIALS: Testimonial[] = [
     companyOrProject: "Belleza Natural",
     projectType: "Tienda Online E-Commerce",
     rating: 5,
-    comment: "Le encargué mi tienda online a CreadorWebs a través de Fiverr y el resultado superó mis expectativas. La velocidad de entrega, la atención a cada detalle y lo fácil que dejó todo preparado para vender fueron espectaculares.",
+    comment: "Le encargué mi tienda online a CreadorWebs y el resultado superó mis expectativas. La velocidad de entrega, la atención a cada detalle y lo fácil que dejó todo preparado para vender fueron espectaculares.",
     date: "Febrero 2026"
   },
   {
@@ -387,12 +407,12 @@ export const TESTIMONIALS: Testimonial[] = [
 
 export const FAQS: FaqItem[] = [
   {
-    question: "¿Cómo es el proceso de trabajo a través de Fiverr?",
-    answer: "Puedes elegir el paquete que mejor se adapte a tus necesidades (Básico, Estándar o Premium) o pedirme una oferta personalizada. Una vez iniciado el pedido, te pediré los datos y preferencias de tu negocio y te presentaré avances hasta llegar a la entrega final con las revisiones pactadas."
+    question: "¿Cómo es el proceso de contratación y pagos?",
+    answer: "Trabajamos con total transparencia y seguridad: el pago se divide en 50% al comenzar el proyecto y el 50% restante únicamente cuando la web esté 100% finalizada, probada y validada por ti. Formalizamos el encargo con factura legal."
   },
   {
-    question: "¿Puedo contratarte directamente por LinkedIn o correo?",
-    answer: "¡Por supuesto! Si prefieres un trato directo sin pasar por Fiverr, puedes usar el formulario de cotización de esta web o escribirme a mi perfil de LinkedIn. Te prepararé una propuesta detallada con presupuesto y contrato formal."
+    question: "¿Puedo contactar directamente por WhatsApp o LinkedIn?",
+    answer: "¡Por supuesto! Puedes pulsar en el botón de WhatsApp o escribirme a LinkedIn. Te responderé personalmente para resolver cualquier duda, asesorarte sobre la mejor opción para tu negocio y entregarte tu presupuesto sin compromiso."
   },
   {
     question: "¿Qué necesito tener preparado antes de empezar?",

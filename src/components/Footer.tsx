@@ -51,15 +51,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <Linkedin className="w-4 h-4" />
             </a>
 
-            <a
-              href={PERSONAL_INFO.fiverrUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors font-bold text-xs"
-              aria-label="Canal de Fiverr"
-            >
-              Fiverr
-            </a>
 
             <a
               href={PERSONAL_INFO.whatsappUrl}

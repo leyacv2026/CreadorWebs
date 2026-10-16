@@ -91,7 +91,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentPath = '/', onNavigate, o
             onClick={onOpenQuote}
             className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-[#031d2c] bg-[#16d5d0] hover:bg-[#61efdf] rounded-full shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer whitespace-nowrap shrink-0"
           >
-            <span>Cotizar Proyecto</span>
+            <span>Ver presupuesto</span>
             <ArrowUpRight className="w-4 h-4" />
           </button>
         </div>
@@ -131,7 +131,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentPath = '/', onNavigate, o
               }}
               className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold text-[#031d2c] bg-[#16d5d0] rounded-xl hover:bg-[#61efdf] transition-colors"
             >
-              <span>Cotizar Proyecto</span>
+              <span>Ver presupuesto</span>
               <ArrowUpRight className="w-4 h-4" />
             </button>
           </div>

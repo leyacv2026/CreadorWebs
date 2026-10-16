@@ -27,7 +27,7 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig 
   const [clientEmail, setClientEmail] = useState('');
   const [clientPhone, setClientPhone] = useState('');
   const [clientNotes, setClientNotes] = useState('');
-  const [preferredChannel, setPreferredChannel] = useState<'whatsapp' | 'fiverr' | 'linkedin' | 'email'>('whatsapp');
+  const [preferredChannel, setPreferredChannel] = useState<'whatsapp' | 'linkedin' | 'email' | 'telefono'>('whatsapp');
   
   // Submission feedback
   const [submitted, setSubmitted] = useState(false);
@@ -434,9 +434,9 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig 
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     {[
                       { id: 'whatsapp', label: 'WhatsApp' },
-                      { id: 'fiverr', label: 'Fiverr' },
                       { id: 'linkedin', label: 'LinkedIn' },
                       { id: 'email', label: 'Correo' },
+                      { id: 'telefono', label: 'Teléfono' },
                     ].map((ch) => (
                       <button
                         key={ch.id}
@@ -459,7 +459,7 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig 
                   className="w-full py-3.5 rounded-xl bg-[#16d5d0] hover:bg-[#61efdf] text-[#031d2c] font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-teal-500/25 transition-all cursor-pointer mt-2"
                 >
                   <Send className="w-4 h-4" />
-                  <span>Enviar solicitud de cotización</span>
+                  <span>Enviar solicitud de presupuesto</span>
                 </button>
               </form>
             </div>
@@ -494,17 +494,17 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig 
                 className="w-full py-3 px-4 rounded-xl bg-[#25D366] text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-[#20ba5a] transition-colors"
               >
                 <MessageSquare className="w-4 h-4" />
-                <span>Enviar cotización ahora por WhatsApp</span>
+                <span>Enviar presupuesto ahora por WhatsApp</span>
               </a>
 
               <a
-                href={PERSONAL_INFO.fiverrUrl}
+                href={PERSONAL_INFO.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-2.5 px-4 rounded-xl bg-[#1dbf73] text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-[#18a463] transition-colors"
+                className="w-full py-2.5 px-4 rounded-xl bg-[#0077b5] text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-[#006097] transition-colors"
               >
-                <span>Ver y pedir en mi perfil de Fiverr</span>
-                <ExternalLink className="w-3.5 h-3.5" />
+                <Linkedin className="w-3.5 h-3.5" />
+                <span>Contactar por LinkedIn oficial</span>
               </a>
 
               <button

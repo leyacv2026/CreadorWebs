@@ -379,7 +379,7 @@ export const CookieConsent: React.FC = () => {
                   5. Seguridad y Pagos Seguros
                 </h4>
                 <p>
-                  Toda la comunicación en este sitio web está protegida mediante cifrado SSL/HTTPS de alta seguridad. Los pagos correspondientes a los paquetes de servicios se gestionan mediante contratos fraccionados protegidos o plataformas con garantía al comprador (como Fiverr, Stripe o PayPal).
+                  Toda la comunicación en este sitio web está protegida mediante cifrado SSL/HTTPS de alta seguridad. Los pagos correspondientes a los servicios se gestionan mediante contratos fraccionados protegidos (50% al pedir y 50% al entregar y validar) o pasarelas seguras (como Stripe o transferencia bancaria).
                 </p>
               </div>
 

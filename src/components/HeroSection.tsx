@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, CheckCircle2, Laptop, Smartphone, ExternalLink, Sparkles } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Laptop, Smartphone, ExternalLink, Sparkles, ShieldCheck, Zap, TrendingUp } from 'lucide-react';
 import { PERSONAL_INFO, PORTFOLIO_PROJECTS } from '../data/portfolioData';
 
 interface HeroSectionProps {
@@ -56,7 +56,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
                 onClick={onOpenQuote}
                 className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-[#16d5d0] hover:bg-[#61efdf] text-[#031d2c] font-black text-sm shadow-xl shadow-teal-500/25 hover:shadow-teal-500/40 hover:-translate-y-0.5 transition-all cursor-pointer"
               >
-                <span>Cotizar Presupuesto Estimado</span>
+                <span>Ver presupuesto</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
@@ -64,7 +64,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
                 href="#servicios"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-white border border-white/20 font-bold text-sm transition-all hover:-translate-y-0.5"
               >
-                <span>Paquetes estilo Fiverr</span>
+                <span>Ver planes y tarifas</span>
               </a>
 
               <a
@@ -156,28 +156,49 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
                 </div>
               </div>
 
-              {/* Rating floating tag */}
-              <div className="absolute -top-4 -right-2 sm:-right-4 bg-[#031d2c]/95 border border-teal-400/40 text-white px-3.5 py-2 rounded-xl shadow-lg text-xs font-bold flex items-center gap-2">
-                <span className="text-amber-300 text-sm">★ 5.0</span>
-                <span className="text-slate-300 text-[11px]">Calificación en Fiverr</span>
-              </div>
             </div>
           </div>
 
         </div>
 
-        {/* 4-Item KPI Strip below hero split */}
-        <div className="mt-16 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          {PERSONAL_INFO.stats.map((stat, i) => (
-            <div key={i} className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
-              <div className="text-2xl sm:text-3xl font-extrabold text-teal-300 font-mono tabular-nums">
-                {stat.value}
+        {/* 4 Sales Hooks / Conversion Cards */}
+        <div className="mt-16 pt-8 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {PERSONAL_INFO.stats.map((stat, i) => {
+            const icons = [
+              <ShieldCheck key="shield" className="w-5 h-5 text-teal-300" />,
+              <Zap key="zap" className="w-5 h-5 text-amber-300" />,
+              <Sparkles key="sparkles" className="w-5 h-5 text-cyan-300" />,
+              <TrendingUp key="trending" className="w-5 h-5 text-emerald-300" />
+            ];
+            return (
+              <div 
+                key={i} 
+                className="p-5 rounded-2xl bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 hover:border-teal-400/40 transition-all text-left group hover:-translate-y-1 shadow-lg shadow-black/20"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0 border border-white/10 group-hover:scale-110 transition-transform">
+                    {icons[i % icons.length]}
+                  </div>
+                  {stat.highlight && (
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-teal-500/20 text-teal-200 border border-teal-400/30">
+                      {stat.highlight}
+                    </span>
+                  )}
+                </div>
+                <div className="text-xl sm:text-2xl font-black text-white font-mono tracking-tight">
+                  {stat.value}
+                </div>
+                <div className="text-sm font-bold text-teal-300 mt-1">
+                  {stat.label}
+                </div>
+                {stat.desc && (
+                  <p className="text-xs text-slate-300 mt-1.5 leading-relaxed">
+                    {stat.desc}
+                  </p>
+                )}
               </div>
-              <div className="text-xs text-slate-300 mt-1 font-medium">
-                {stat.label}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

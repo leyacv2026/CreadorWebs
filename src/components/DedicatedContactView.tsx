@@ -50,7 +50,7 @@ export const DedicatedContactView: React.FC<DedicatedContactViewProps> = ({
             Solicita tu Presupuesto Web a Medida
           </h1>
           <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed">
-            Configura las características de tu proyecto para obtener una estimación transparente en tiempo real, o contáctanos directamente a través de Fiverr, LinkedIn o WhatsApp.
+            Configura las características de tu proyecto para obtener una estimación transparente en tiempo real, o contáctanos directamente a través de WhatsApp o LinkedIn.
           </p>
         </header>
 

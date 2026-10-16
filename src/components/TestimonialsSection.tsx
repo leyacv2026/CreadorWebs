@@ -32,7 +32,7 @@ export const TestimonialsSection: React.FC = () => {
             Lo que dicen mis clientes
           </h2>
           <p className="mt-2 text-sm text-slate-300">
-            Opiniones de proyectos completados en Fiverr y clientes directos satisfechos.
+            Opiniones reales de proyectos completados y clientes directos que ya impulsan su negocio.
           </p>
         </div>
 

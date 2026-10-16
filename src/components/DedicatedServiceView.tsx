@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, Check, Clock, RotateCcw, ShieldCheck, Sparkles, ArrowRight, ExternalLink, HelpCircle, Layers, Zap } from 'lucide-react';
+import { ArrowLeft, Check, Clock, RotateCcw, ShieldCheck, Sparkles, ArrowRight, ExternalLink, HelpCircle, Layers, Zap, MessageSquare } from 'lucide-react';
 import { FIVERR_PACKAGES, FiverrPackage, PERSONAL_INFO } from '../data/portfolioData';
 
 interface DedicatedServiceViewProps {
@@ -154,13 +154,13 @@ export const DedicatedServiceView: React.FC<DedicatedServiceViewProps> = ({
             </button>
 
             <a
-              href={pkg.fiverrGigUrl}
+              href={`https://wa.me/34608180231?text=${encodeURIComponent(`Hola CreadorWebs, estoy viendo el servicio de ${pkg.name} y me gustaría recibir más información.`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="px-5 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs flex items-center gap-2 border border-slate-700 transition-colors"
             >
-              <span>Contratar en Fiverr Oficial</span>
-              <ExternalLink className="w-3.5 h-3.5 text-teal-300" />
+              <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Consultar por WhatsApp</span>
             </a>
           </div>
         </header>
@@ -262,7 +262,7 @@ export const DedicatedServiceView: React.FC<DedicatedServiceViewProps> = ({
                 onClick={() => onOpenQuote(pkg)}
                 className="w-full py-3.5 px-4 rounded-xl font-black text-xs uppercase tracking-wider bg-teal-400 hover:bg-teal-300 text-slate-950 flex items-center justify-center gap-2 shadow-md shadow-teal-500/25 transition-all cursor-pointer"
               >
-                <span>Cotizar ahora</span>
+                <span>Ver presupuesto</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
