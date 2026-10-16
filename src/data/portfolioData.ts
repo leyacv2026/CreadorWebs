@@ -73,7 +73,7 @@ export const PERSONAL_INFO = {
   email: "",
   whatsappNumber: "34608180231",
   whatsappUrl: "https://wa.me/34608180231?text=Hola%20CreadorWebs,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto%20web",
-  linkedinUrl: "https://www.linkedin.com/in/yanishp-creador-p%C3%A1ginas-webs",
+  linkedinUrl: "https://www.linkedin.com/in/yanishp-creador-paginas-webs",
   websiteUrl: "https://creador-webs.vercel.app",
   fiverrUrl: "https://es.fiverr.com/creador_webs/creador-de-paginas-webs",
   fiverrUsername: "@creador_webs",
