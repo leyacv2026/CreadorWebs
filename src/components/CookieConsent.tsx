@@ -29,8 +29,10 @@ export const CookieConsent: React.FC = () => {
         return () => clearTimeout(timer);
       } else {
         const parsed = JSON.parse(stored) as CookiePreferences;
-        setAnalyticsEnabled(parsed.analytics ?? true);
+        const isGranted = parsed.analytics ?? true;
+        setAnalyticsEnabled(isGranted);
         setPreferencesEnabled(parsed.preferences ?? true);
+        updateGoogleConsent(isGranted);
       }
     } catch {
       setIsVisible(true);
@@ -43,6 +45,14 @@ export const CookieConsent: React.FC = () => {
     window.addEventListener('open-cookie-settings', handleReopen);
     return () => window.removeEventListener('open-cookie-settings', handleReopen);
   }, []);
+
+  const updateGoogleConsent = (granted: boolean) => {
+    if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+      (window as any).gtag('consent', 'update', {
+        analytics_storage: granted ? 'granted' : 'denied',
+      });
+    }
+  };
 
   const saveConsent = (prefs: { analytics: boolean; preferences: boolean }) => {
     const consentData: CookiePreferences = {
@@ -58,6 +68,7 @@ export const CookieConsent: React.FC = () => {
       console.warn('No se pudo guardar la configuración de cookies en localStorage', e);
     }
 
+    updateGoogleConsent(prefs.analytics);
     setAnalyticsEnabled(prefs.analytics);
     setPreferencesEnabled(prefs.preferences);
     setIsVisible(false);

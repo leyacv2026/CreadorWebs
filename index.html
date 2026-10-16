@@ -35,6 +35,27 @@
     <!-- Google Search Console verification meta tag oficial -->
     <meta name="google-site-verification" content="xG5CRB0vvMsEIUWhw_syaoCDziaVVmu_mMHYk0v2WOY" />
     
+    <!-- Google Consent Mode v2 (Conformidad RGPD para Google Analytics) -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      // Bloqueado por defecto hasta que el usuario dé su consentimiento en el banner de cookies
+      gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'wait_for_update': 500
+      });
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-50MGG46HK2"></script>
+    <script>
+      gtag('js', new Date());
+      gtag('config', 'G-50MGG46HK2');
+    </script>
+
     <!-- Tipografías optimizadas Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
