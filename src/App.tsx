@@ -161,7 +161,7 @@ export default function App() {
               {/* Sobre mí */}
               <AboutSection />
 
-              {/* Servicios & Paquetes Estilo Fiverr */}
+              {/* Servicios & Paquetes Web Profesionales */}
               <ServicesSection
                 onSelectPackageForQuote={handleSelectPackage}
                 onViewServicePage={(slug) => navigate(`/servicios/${slug}`)}
@@ -182,7 +182,7 @@ export default function App() {
               {/* Preguntas Frecuentes */}
               <FaqSection />
 
-              {/* Contacto Multicanal (Fiverr / LinkedIn / WhatsApp) */}
+              {/* Contacto Multicanal Directo (WhatsApp / LinkedIn) */}
               <ContactSection onOpenQuote={scrollToQuote} />
             </>
           )}

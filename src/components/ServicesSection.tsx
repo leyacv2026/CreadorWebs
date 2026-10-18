@@ -86,7 +86,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectPackag
           ))}
         </div>
 
-        {/* Section Subhead: Fiverr Packages */}
+        {/* Section Subhead: Service Packages */}
         <div className="text-center max-w-2xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-500/15 border border-teal-400/40 text-teal-300 text-xs font-bold mb-3 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />

@@ -40,7 +40,7 @@ export const DedicatedPortfolioView: React.FC<DedicatedPortfolioViewProps> = ({
         <header className="max-w-3xl mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-500/15 border border-teal-400/40 text-teal-300 text-xs font-bold mb-4 shadow-sm">
             <Sparkles className="w-4 h-4 text-teal-400" />
-            <span>Casos Reales · 100% Calificación 5.0 ★</span>
+            <span>Casos Reales · Proyectos 100% a Medida</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
             Portafolio de Páginas Web y Casos de Estudio
