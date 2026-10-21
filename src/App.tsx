@@ -4,195 +4,165 @@ import { HeroSection } from './components/HeroSection';
 import { AboutSection } from './components/AboutSection';
 import { ServicesSection } from './components/ServicesSection';
 import { PackageComparator } from './components/PackageComparator';
+import { ChatFeatureSection } from './components/ChatFeatureSection';
 import { PortfolioGallery } from './components/PortfolioGallery';
+import { NichesSection } from './components/NichesSection';
 import { QuoteCalculator } from './components/QuoteCalculator';
 import { TestimonialsSection } from './components/TestimonialsSection';
-import { FaqSection } from './components/FaqSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
+import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { LiveChatWidget } from './components/LiveChatWidget';
 import { CookieConsent } from './components/CookieConsent';
-import { DedicatedServiceView } from './components/DedicatedServiceView';
-import { DedicatedPortfolioView } from './components/DedicatedPortfolioView';
-import { DedicatedContactView } from './components/DedicatedContactView';
-import { FiverrPackage, PortfolioProject } from './data/portfolioData';
+import { LegalModal } from './components/LegalModal';
+import { NicheDemoLandingPage } from './components/NicheDemoLandingPage';
 
-export default function App() {
-  const [currentPath, setCurrentPath] = useState<string>(() => {
-    if (typeof window !== 'undefined') {
-      return window.location.pathname || '/';
-    }
-    return '/';
-  });
+export const App: React.FC = () => {
+  const [activeNicheDemo, setActiveNicheDemo] = useState<string | null>(null);
+  const [chatWidgetOpen, setChatWidgetOpen] = useState(false);
+  const [legalModalOpen, setLegalModalOpen] = useState(false);
+  const [legalModalTab, setLegalModalTab] = useState<'aviso' | 'privacidad' | 'cookies'>('aviso');
 
-  const [quoteConfig, setQuoteConfig] = useState<{
-    packageName?: string;
-    extraCost?: number;
-    selectedAddons?: string[];
-  } | null>(null);
-
-  // Sync with browser navigation (Back / Forward buttons)
+  // Sincronización con el hash de la URL para permitir enlaces directos a cualquier demo de nicho
   useEffect(() => {
-    const handlePopState = () => {
-      setCurrentPath(window.location.pathname || '/');
+    const handleHash = () => {
+      const hash = window.location.hash;
+      if (hash.startsWith('#demo-')) {
+        const nicheId = hash.replace('#demo-', '');
+        setActiveNicheDemo(nicheId);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (hash === '#reformas') {
+        setActiveNicheDemo('reformas');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        setActiveNicheDemo(null);
+      }
     };
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
+
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
   }, []);
 
-  const navigate = (path: string) => {
-    if (typeof window !== 'undefined') {
-      window.history.pushState({}, '', path);
-      setCurrentPath(path);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+  const handleOpenLegal = (tab: 'aviso' | 'privacidad' | 'cookies') => {
+    setLegalModalTab(tab);
+    setLegalModalOpen(true);
   };
 
-  const scrollToQuote = () => {
-    if (currentPath !== '/') {
-      navigate('/contacto');
+  const handleScrollToSection = (id: string) => {
+    if (activeNicheDemo) {
+      setActiveNicheDemo(null);
+      window.location.hash = `#${id}`;
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
       return;
     }
-    const el = document.getElementById('cotizador');
+
+    const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  const handleSelectPackage = (pkg: FiverrPackage) => {
-    setQuoteConfig({
-      packageName: `${pkg.name} (${pkg.subtitle})`,
-      extraCost: 0,
-      selectedAddons: [],
-    });
-    if (currentPath !== '/') {
-      navigate('/contacto');
-    } else {
-      scrollToQuote();
-    }
+  const handleOpenNicheDemo = (nicheId: string) => {
+    setActiveNicheDemo(nicheId);
+    window.location.hash = `#demo-${nicheId}`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleSelectCustomConfig = (packageName: string, extraCost: number, selectedAddons: string[]) => {
-    setQuoteConfig({
-      packageName,
-      extraCost,
-      selectedAddons,
-    });
-    if (currentPath !== '/') {
-      navigate('/contacto');
-    } else {
-      scrollToQuote();
-    }
+  const handleBackToHome = () => {
+    setActiveNicheDemo(null);
+    window.location.hash = '#nichos';
+    setTimeout(() => {
+      const el = document.getElementById('nichos');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   };
 
-  const handleRequestSimilar = (project: PortfolioProject) => {
-    setQuoteConfig({
-      packageName: `Estilo ${project.title} (${project.categoryLabel})`,
-      extraCost: 0,
-      selectedAddons: project.deliverables,
-    });
-    if (currentPath !== '/') {
-      navigate('/contacto');
-    } else {
-      scrollToQuote();
-    }
-  };
+  // Si hay una demo de nicho activa
+  if (activeNicheDemo) {
+    return <NicheDemoLandingPage nicheId={activeNicheDemo} onBack={handleBackToHome} />;
+  }
 
-  // Main homepage title reset
-  useEffect(() => {
-    if (currentPath === '/') {
-      document.title = 'CreadorWebs | Diseño Web & Desarrollo Profesional';
-    }
-  }, [currentPath]);
-
+  // Vista principal de Creador-Webs
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans selection:bg-teal-500 selection:text-white">
-      {/* Sticky Navigation Top Bar */}
-      <TopBar currentPath={currentPath} onNavigate={navigate} onOpenQuote={scrollToQuote} />
+    <div className="min-h-screen bg-[#031d2c] text-white flex flex-col font-sans selection:bg-teal-500 selection:text-[#031d2c]">
+      
+      {/* 1. Header con TopBar & Esfera Orbital Type */}
+      <TopBar onScrollToSection={handleScrollToSection} />
 
+      {/* 2. Hero Section con Ganchos de Venta y Retrato de Yanis */}
       <main className="flex-1">
-        {currentPath === '/servicios/landing-pages' && (
-          <DedicatedServiceView
-            serviceSlug="landing-pages"
-            onNavigate={navigate}
-            onOpenQuote={handleSelectPackage}
-          />
-        )}
+        <HeroSection 
+          onScrollToCalculator={() => handleScrollToSection('cotizador')}
+          onScrollToServices={() => handleScrollToSection('servicios')}
+        />
 
-        {currentPath === '/servicios/webs-corporativas' && (
-          <DedicatedServiceView
-            serviceSlug="webs-corporativas"
-            onNavigate={navigate}
-            onOpenQuote={handleSelectPackage}
-          />
-        )}
+        {/* 3. Sobre mí & Metodología */}
+        <AboutSection />
 
-        {currentPath === '/servicios/tiendas-online' && (
-          <DedicatedServiceView
-            serviceSlug="tiendas-online"
-            onNavigate={navigate}
-            onOpenQuote={handleSelectPackage}
-          />
-        )}
+        {/* 4. Servicios & Paquetes Estructurados */}
+        <ServicesSection 
+          onSelectPackage={() => handleScrollToSection('cotizador')}
+        />
 
-        {currentPath === '/portafolio' && (
-          <DedicatedPortfolioView
-            onNavigate={navigate}
-            onRequestSimilar={handleRequestSimilar}
-          />
-        )}
+        {/* 5. Comparador Interactivo de Paquetes y Extras */}
+        <PackageComparator />
 
-        {currentPath === '/contacto' && (
-          <DedicatedContactView
-            onNavigate={navigate}
-            initialConfig={quoteConfig}
-          />
-        )}
+        {/* 6. Soporte por Chat 24/7 (Respuestas inmediatas, automatiza FAQ, citas y consultas) */}
+        <ChatFeatureSection 
+          onOpenChatWidget={() => setChatWidgetOpen(true)}
+        />
 
-        {/* Default Homepage Route */}
-        {currentPath !== '/servicios/landing-pages' &&
-          currentPath !== '/servicios/webs-corporativas' &&
-          currentPath !== '/servicios/tiendas-online' &&
-          currentPath !== '/portafolio' &&
-          currentPath !== '/contacto' && (
-            <>
-              {/* Hero Section */}
-              <HeroSection onOpenQuote={scrollToQuote} />
+        {/* 7. Portafolio & Casos Reales (EcoVida, Belleza Natural, La Terraza) */}
+        <PortfolioGallery />
 
-              {/* Sobre mí */}
-              <AboutSection />
+        {/* 8. Nichos Principales (con botón interactivo a la demo de cada nicho) */}
+        <NichesSection 
+          onOpenNicheDemo={handleOpenNicheDemo}
+        />
 
-              {/* Servicios & Paquetes Web Profesionales */}
-              <ServicesSection
-                onSelectPackageForQuote={handleSelectPackage}
-                onViewServicePage={(slug) => navigate(`/servicios/${slug}`)}
-              />
+        {/* 9. Cotizador de Presupuestos en Tiempo Real */}
+        <QuoteCalculator />
 
-              {/* Comparador Interactivo de Paquetes y Beneficios */}
-              <PackageComparator onSelectConfigForQuote={handleSelectCustomConfig} />
+        {/* 10. Opiniones y Experiencias de Clientes */}
+        <TestimonialsSection />
 
-              {/* Portafolio & Casos de Éxito */}
-              <PortfolioGallery onRequestSimilarProject={handleRequestSimilar} />
-
-              {/* Calculadora Interactiva de Presupuesto & Formulario de Cotización */}
-              <QuoteCalculator initialConfig={quoteConfig} />
-
-              {/* Opiniones y Testimonios */}
-              <TestimonialsSection />
-
-              {/* Preguntas Frecuentes */}
-              <FaqSection />
-
-              {/* Contacto Multicanal Directo (WhatsApp / LinkedIn) */}
-              <ContactSection onOpenQuote={scrollToQuote} />
-            </>
-          )}
+        {/* 11. Contacto Directo & WhatsApp */}
+        <ContactSection onOpenLegal={handleOpenLegal} />
       </main>
 
-      {/* Footer */}
-      <Footer onNavigate={navigate} />
+      {/* 12. Footer Institucional */}
+      <Footer 
+        onOpenLegal={handleOpenLegal}
+        onScrollToSection={handleScrollToSection}
+      />
 
-      {/* Cookies & Protección de Clientes (RGPD) */}
+      {/* 13. Widget Interactivo de Soporte por Chat 24/7 */}
+      <LiveChatWidget
+        isOpen={chatWidgetOpen}
+        onOpen={() => setChatWidgetOpen(true)}
+        onClose={() => setChatWidgetOpen(false)}
+        standaloneToggle={true}
+      />
+
+      {/* 14. Botón Flotante Permanente de WhatsApp */}
+      <FloatingWhatsApp />
+
+      {/* 15. Banner de Cookies conforme a RGPD */}
       <CookieConsent />
+
+      {/* 16. Modal de Aviso Legal, Privacidad y Cookies */}
+      <LegalModal
+        isOpen={legalModalOpen}
+        initialTab={legalModalTab}
+        onClose={() => setLegalModalOpen(false)}
+      />
+
     </div>
   );
-}
+};
+
+export default App;

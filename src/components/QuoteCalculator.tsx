@@ -1,522 +1,396 @@
-import React, { useState, useEffect } from 'react';
-import { Calculator, Check, ArrowRight, Send, MessageSquare, Linkedin, ExternalLink, Sparkles, AlertCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { Calculator, CheckCircle2, MessageSquare, Send, Sparkles, AlertCircle, RefreshCw, HelpCircle } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
-interface QuoteCalculatorProps {
-  initialConfig?: {
-    packageName?: string;
-    extraCost?: number;
-    selectedAddons?: string[];
-  } | null;
+interface ModuleOption {
+  id: string;
+  label: string;
+  priceEur: number;
+  description: string;
 }
 
-export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ initialConfig }) => {
-  // Calculator state
-  const [projectType, setProjectType] = useState<'landing' | 'corporativa' | 'ecommerce' | 'redisenio'>('corporativa');
-  const [pagesCount, setPagesCount] = useState<number>(5);
-  const [hasCopywriting, setHasCopywriting] = useState<boolean>(false);
-  const [hasSeoPro, setHasSeoPro] = useState<boolean>(true);
-  const [hasBooking, setHasBooking] = useState<boolean>(false);
-  const [hasPaymentGateway, setHasPaymentGateway] = useState<boolean>(false);
-  const [hasMultilingual, setHasMultilingual] = useState<boolean>(false);
-  const [isExpressDelivery, setIsExpressDelivery] = useState<boolean>(false);
-  const [hasMonthlyMaintenance, setHasMonthlyMaintenance] = useState<boolean>(false);
+const AVAILABLE_MODULES: ModuleOption[] = [
+  { id: 'whatsapp', label: 'Botón WhatsApp Directo', priceEur: 0, description: 'Integración básica ya incluida gratis en todas las tarifas' },
+  { id: 'contact_form', label: 'Formulario de Contacto y Presupuesto', priceEur: 50, description: 'Formulario estructurado con confirmación de envío (+50€)' },
+  { id: 'project_gallery', label: 'Galería de Trabajos / Proyectos', priceEur: 60, description: 'Muestrario fotográfico de tus proyectos o servicios (+60€)' },
+  { id: 'catalog', label: 'Catálogo de Productos / Servicios', priceEur: 140, description: 'Fichas detalladas con fotos y descripción' },
+  { id: 'ecommerce', label: 'Pasarela de Pago (Stripe/PayPal/Bizum)', priceEur: 220, description: 'Venta online directa con cobro automatizado' },
+  { id: 'booking', label: 'Sistema de Citas o Reservas Online', priceEur: 110, description: 'Calendario y reservas directas para clientes' },
+  { id: 'multilang', label: 'Multi-idioma (Català / Inglés)', priceEur: 120, description: 'Estructura traducida y arquitectura SEO regional' },
+  { id: 'chat_support', label: 'Soporte por Chat 24/7 (FAQ y Citas)', priceEur: 95, description: 'Respuestas inmediatas en tu web, automatiza FAQ, citas y consultas (+95€)' },
+  { id: 'copy', label: 'Redacción de Textos Persuasivos', priceEur: 130, description: 'Copywriting profesional enfocado a ventas' },
+  { id: 'maintenance', label: 'Mantenimiento Mensual Opcional', priceEur: 100, description: 'Copias de seguridad, actualizaciones y 2 cambios/mes (100€/mes)' },
+];
 
-  // Form state
-  const [clientName, setClientName] = useState('');
-  const [clientEmail, setClientEmail] = useState('');
-  const [clientPhone, setClientPhone] = useState('');
-  const [clientNotes, setClientNotes] = useState('');
-  const [preferredChannel, setPreferredChannel] = useState<'whatsapp' | 'linkedin' | 'email' | 'telefono'>('whatsapp');
-  
-  // Submission feedback
+export const QuoteCalculator: React.FC = () => {
+  // Configuración de cálculo
+  const [projectType, setProjectType] = useState<'landing' | 'corporativa' | 'ecommerce' | 'custom'>('landing');
+  const [pagesCount, setPagesCount] = useState<number>(1);
+  const [selectedModules, setSelectedModules] = useState<string[]>(['whatsapp']);
+  const [deliverySpeed, setDeliverySpeed] = useState<'normal' | 'express'>('normal');
+
+  // Formulario de contacto
+  const [name, setName] = useState('');
+  const [contact, setContact] = useState('');
+  const [notes, setNotes] = useState('');
+  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [formError, setFormError] = useState('');
 
-  // Synchronize when prefilled from another section
-  useEffect(() => {
-    if (initialConfig?.packageName) {
-      if (initialConfig.packageName.toLowerCase().includes('landing')) {
-        setProjectType('landing');
-        setPagesCount(1);
-      } else if (initialConfig.packageName.toLowerCase().includes('commerce')) {
-        setProjectType('ecommerce');
-        setPagesCount(8);
-        setHasPaymentGateway(true);
-      } else {
-        setProjectType('corporativa');
-        setPagesCount(5);
-      }
-
-      if (initialConfig.selectedAddons) {
-        setHasCopywriting(initialConfig.selectedAddons.some(a => a.toLowerCase().includes('redacción')));
-        setHasMultilingual(initialConfig.selectedAddons.some(a => a.toLowerCase().includes('multi')));
-      }
-    }
-  }, [initialConfig]);
-
-  // Price calculation
-  const calculateTotal = () => {
-    let base = 0;
-    let days = 3;
-
-    if (projectType === 'landing') {
-      base = 250;
-      days = 5;
-    } else if (projectType === 'corporativa') {
-      base = 700 + Math.max(0, pagesCount - 5) * 35;
-      days = 10;
-    } else if (projectType === 'ecommerce') {
-      base = 1200 + Math.max(0, pagesCount - 10) * 50;
-      days = 21;
-    } else {
-      base = 450 + Math.max(0, pagesCount - 3) * 30;
-      days = 7;
-    }
-
-    if (hasCopywriting) base += 80;
-    if (hasSeoPro) base += 60;
-    if (hasBooking) base += 90;
-    if (hasPaymentGateway && projectType !== 'ecommerce') base += 100;
-    if (hasMultilingual) base += 90;
-    if (isExpressDelivery) {
-      base += Math.round(base * 0.15);
-      days = Math.max(3, Math.floor(days * 0.65));
-    }
-
-    // Modalidad de pago fraccionado (anticipo vs entrega)
-    let deposit = 125;
-    let finalPay = 125;
-    let monthlyRate = 45;
-
-    if (projectType === 'landing') {
-      deposit = 125;
-      finalPay = base - 125;
-      monthlyRate = 45;
-    } else if (projectType === 'corporativa') {
-      deposit = 350;
-      finalPay = base - 350;
-      monthlyRate = 120;
-    } else if (projectType === 'ecommerce') {
-      deposit = 600;
-      finalPay = base - 600;
-      monthlyRate = 300;
-    } else {
-      deposit = Math.round(base * 0.5);
-      finalPay = base - deposit;
-      monthlyRate = 80;
-    }
-
-    return { 
-      totalEur: base, 
-      totalUsd: Math.round(base * 1.08), 
-      depositEur: deposit,
-      finalPaymentEur: finalPay,
-      monthlyFee: monthlyRate,
-      estimatedDays: days 
-    };
+  // Lógica de cálculo de precios unificada y exacta
+  const basePrices = {
+    landing: 250,
+    corporativa: 550,
+    ecommerce: 950,
+    custom: 1200
   };
 
-  const { totalEur, totalUsd, depositEur, finalPaymentEur, monthlyFee, estimatedDays } = calculateTotal();
+  const calculateTotal = () => {
+    let total = basePrices[projectType];
+    
+    // Páginas adicionales en Web Corporativa si supera 5 páginas
+    if (projectType === 'corporativa' && pagesCount > 5) {
+      total += (pagesCount - 5) * 50;
+    }
+
+    // Módulos extras seleccionados
+    selectedModules.forEach(modId => {
+      const mod = AVAILABLE_MODULES.find(m => m.id === modId);
+      if (mod) total += mod.priceEur;
+    });
+
+    // Velocidad exprés (+20%)
+    if (deliverySpeed === 'express') {
+      total = Math.round(total * 1.20);
+    }
+
+    return total;
+  };
+
+  const totalEstimate = calculateTotal();
+
+  const toggleModule = (id: string) => {
+    if (id === 'whatsapp') return; // Siempre incluido gratis
+    setSelectedModules(prev =>
+      prev.includes(id) ? prev.filter(m => m !== id) : [...prev, id]
+    );
+  };
+
+  const handleTypeChange = (type: 'landing' | 'corporativa' | 'ecommerce' | 'custom') => {
+    setProjectType(type);
+    if (type === 'landing') {
+      setPagesCount(1);
+    } else if (type === 'corporativa') {
+      setPagesCount(5);
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setFormError('');
-
-    if (!clientName.trim()) {
-      setFormError('Por favor introduce tu nombre o empresa.');
-      return;
-    }
-    if (!clientEmail.trim() || !clientEmail.includes('@')) {
-      setFormError('Por favor introduce un correo electrónico válido.');
-      return;
-    }
-
+    if (!acceptedPrivacy) return;
     setSubmitted(true);
   };
 
-  const generateWhatsappMessage = () => {
-    const text = `Hola CreadorWebs! He configurado un presupuesto en tu web:
-- Proyecto: ${projectType.toUpperCase()} (~${pagesCount} páginas)
-- Precio estimado: ${totalEur}€ (~$${totalUsd} USD)
-- Forma de pago: ${depositEur}€ para pedir (reserva) + ${finalPaymentEur}€ al finalizar la web
-- Exclusividad: Solo 1 web por pedido (dedicación 100% enfocada)
-- Mantenimiento mensual: ${hasMonthlyMaintenance ? (projectType === 'landing' ? `Sí (+45€/mes por adelantado: llevar landing al día)` : projectType === 'corporativa' ? `Sí (+120€/mes por adelantado: soporte continuo y cambios)` : `Sí (+300€/mes por adelantado: catálogo y Agentes IA)`) : 'No contratado'}
-- Plazo estimado: ${estimatedDays} días
-- Nombre: ${clientName}
-- Correo: ${clientEmail}
-- Teléfono: ${clientPhone || 'No indicado'}
-- Notas: ${clientNotes || 'Sin notas adicionales'}`;
-    return `https://wa.me/34608180231?text=${encodeURIComponent(text)}`;
+  const getWhatsAppMessage = () => {
+    const text = `Hola Yanis! He calculado un presupuesto en tu web:
+- Tipo: ${projectType.toUpperCase()}
+- Páginas estimadas: ${projectType === 'landing' ? 1 : pagesCount}
+- Módulos extras: ${selectedModules.join(', ')}
+- Plazo: ${deliverySpeed === 'express' ? 'Urgente (+20%)' : 'Estándar'}
+- Estimación total: ${totalEstimate} € (Pago 50% al inicio y 50% al entregar)
+- Mi nombre: ${name || 'Interesado'}
+- Teléfono/Email: ${contact || 'No especificado'}`;
+    return encodeURIComponent(text);
   };
 
   return (
-    <section id="cotizador" className="py-20 bg-gradient-to-b from-slate-900 to-[#031d2c] text-white relative">
+    <section id="cotizador" className="py-20 sm:py-28 bg-[#021622] text-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="max-w-3xl mb-12">
-          <div className="text-teal-400 text-xs font-extrabold uppercase tracking-widest mb-2 flex items-center gap-1.5">
-            <Calculator className="w-4 h-4 text-teal-400" />
-            <span>Presupuesto Inmediato &amp; Contacto</span>
+        {/* Cabecera */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-950 border border-teal-500/30 text-teal-300 text-xs font-bold uppercase tracking-wider mb-3">
+            <Calculator className="w-3.5 h-3.5 text-teal-400" />
+            <span>Simulador de Presupuesto Coherente</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Calculadora interactiva de cotización
+          <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
+            Calcula el Presupuesto Exacto de tu Web
           </h2>
-          <p className="mt-3 text-base text-slate-300">
-            Configura las características de tu proyecto web para obtener una estimación transparente en tiempo real y enviarme tu solicitud directa.
+          <p className="mt-3 text-slate-300 text-base sm:text-lg">
+            Mismas tarifas y condiciones que en toda la web. Pago 50% al empezar y 50% al entregar.
           </p>
         </div>
 
-        {/* 2-Column Split: Configurator + Quote Summary Form */}
+        {/* Panel principal del cotizador */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          {/* Left Column: Interactive Options */}
-          <div className="lg:col-span-7 space-y-8 bg-slate-800/80 p-6 sm:p-8 rounded-3xl border border-slate-700/80 shadow-xl">
+          {/* Bloque Izquierdo: Opciones del cotizador */}
+          <div className="lg:col-span-7 bg-[#062b40]/70 rounded-3xl p-6 sm:p-8 border border-slate-700/80 shadow-xl space-y-8">
             
-            {/* 1. Tipo de proyecto */}
+            {/* Paso 1: Tipo de Proyecto */}
             <div>
-              <label className="text-xs font-bold uppercase tracking-wider text-teal-300 block mb-3">
-                1. ¿Qué tipo de sitio web necesitas?
-              </label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="flex justify-between items-center mb-3">
+                <label className="text-xs font-bold uppercase tracking-wider text-teal-300 block">
+                  1. Selecciona la Tarifa Base
+                </label>
+                <span className="text-xs text-slate-400">
+                  Base fija garantizada
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                 {[
-                  { id: 'landing', label: 'Landing Page Express', sub: '1 página de conversión' },
-                  { id: 'corporativa', label: 'Web Corporativa', sub: 'Pymes, servicios y marcas' },
-                  { id: 'ecommerce', label: 'Tienda Online', sub: 'Venta con pasarela de pago' },
-                  { id: 'redisenio', label: 'Rediseño / Ajustes', sub: 'Renovación de web actual' },
-                ].map((item) => (
+                  { id: 'landing', label: 'Landing Express', price: '250 €', sub: 'Página única' },
+                  { id: 'corporativa', label: 'Web Corporativa', price: '550 €', sub: 'Hasta 5 páginas' },
+                  { id: 'ecommerce', label: 'Tienda Online', price: '950 €', sub: 'Con pasarela de pago' },
+                  { id: 'custom', label: 'A Medida', price: '1.200 €', sub: 'Desarrollo integral' },
+                ].map((type) => (
                   <button
-                    key={item.id}
+                    key={type.id}
                     type="button"
-                    onClick={() => setProjectType(item.id as any)}
-                    className={`p-3.5 rounded-2xl text-left border transition-all cursor-pointer ${
-                      projectType === item.id
-                        ? 'bg-teal-500/20 border-teal-400 text-white shadow-md'
-                        : 'bg-slate-900/60 border-slate-700 text-slate-300 hover:border-slate-500'
+                    onClick={() => handleTypeChange(type.id as any)}
+                    className={`p-3.5 rounded-2xl text-center border transition-all cursor-pointer ${
+                      projectType === type.id
+                        ? 'bg-teal-500 text-[#031d2c] border-teal-400 font-black shadow-md'
+                        : 'bg-[#031d2c] text-slate-300 border-slate-700 hover:border-slate-600 font-semibold'
                     }`}
                   >
-                    <span className="font-bold text-sm block">{item.label}</span>
-                    <span className="text-[11px] text-slate-400 block mt-0.5">{item.sub}</span>
+                    <p className="text-xs sm:text-sm font-bold">{type.label}</p>
+                    <p className={`font-mono text-xs font-black mt-1 ${projectType === type.id ? 'text-[#031d2c]' : 'text-teal-300'}`}>
+                      {type.price}
+                    </p>
+                    <p className={`text-[10px] mt-0.5 ${projectType === type.id ? 'text-[#031d2c]/80' : 'text-slate-400'}`}>
+                      {type.sub}
+                    </p>
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* 2. Número de páginas */}
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <label className="text-xs font-bold uppercase tracking-wider text-teal-300">
-                  2. Alcance estimado de páginas o secciones
-                </label>
-                <span className="font-mono text-sm font-bold text-teal-300 bg-teal-950 px-2.5 py-0.5 rounded-lg border border-teal-800">
-                  {pagesCount} {pagesCount === 1 ? 'página' : 'páginas'}
-                </span>
+            {/* Paso 2: Número de páginas (si aplica) */}
+            {projectType === 'corporativa' && (
+              <div className="p-4 rounded-2xl bg-[#031d2c] border border-slate-700/80">
+                <div className="flex justify-between items-center mb-2">
+                  <label className="text-xs font-bold uppercase tracking-wider text-teal-300">
+                    2. Número de Páginas (Hasta 5 incluidas en 550 €):
+                  </label>
+                  <span className="font-mono font-bold text-teal-300 text-sm">
+                    {pagesCount} páginas {pagesCount > 5 && `(+${(pagesCount - 5) * 50}€)`}
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="2"
+                  max="10"
+                  value={pagesCount}
+                  onChange={(e) => setPagesCount(Number(e.target.value))}
+                  className="w-full accent-teal-400 cursor-pointer"
+                />
+                <div className="flex justify-between text-[11px] text-slate-400 mt-1">
+                  <span>2 pág.</span>
+                  <span>5 pág. (incluidas)</span>
+                  <span>10 pág. (+250€)</span>
+                </div>
               </div>
-              <input
-                type="range"
-                min="1"
-                max="12"
-                value={pagesCount}
-                onChange={(e) => setPagesCount(parseInt(e.target.value))}
-                className="w-full accent-teal-400 h-2 bg-slate-700 rounded-lg cursor-pointer"
-              />
-              <div className="flex justify-between text-[11px] text-slate-400 mt-1">
-                <span>1 (One-page)</span>
-                <span>5 (Corporativo)</span>
-                <span>12+ (Extenso)</span>
+            )}
+
+            {/* Paso 3: Módulos y Funcionalidades */}
+            <div>
+              <label className="text-xs font-bold uppercase tracking-wider text-teal-300 block mb-3">
+                {projectType === 'corporativa' ? '3' : '2'}. Módulos Extras y Servicios Opcionales
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {AVAILABLE_MODULES.map((mod) => {
+                  const isChecked = selectedModules.includes(mod.id);
+                  const isFree = mod.priceEur === 0;
+                  return (
+                    <div
+                      key={mod.id}
+                      onClick={() => toggleModule(mod.id)}
+                      className={`p-3 rounded-2xl border text-xs cursor-pointer transition-colors flex items-start gap-3 ${
+                        isChecked
+                          ? 'bg-teal-950/70 border-teal-400 text-white'
+                          : 'bg-[#031d2c] border-slate-700 text-slate-300 hover:border-slate-600'
+                      }`}
+                    >
+                      <div className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 mt-0.5 ${
+                        isChecked ? 'bg-teal-500 border-teal-400 text-[#031d2c]' : 'border-slate-500'
+                      }`}>
+                        {isChecked && <CheckCircle2 className="w-3.5 h-3.5" />}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex justify-between items-center">
+                          <span className="font-bold">{mod.label}</span>
+                          <span className="font-mono text-teal-300 font-bold ml-1 whitespace-nowrap">
+                            {isFree ? 'Gratis' : `+${mod.priceEur}€`}
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-slate-400 mt-0.5">{mod.description}</p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
-            {/* 3. Funcionalidades adicionales */}
+            {/* Paso 4: Plazo */}
             <div>
               <label className="text-xs font-bold uppercase tracking-wider text-teal-300 block mb-3">
-                3. Funcionalidades y complementos opcionales
+                Plazo de Entrega
               </label>
-              <div className="space-y-2.5">
-                {[
-                  {
-                    checked: hasCopywriting,
-                    setter: setHasCopywriting,
-                    label: 'Redacción persuasiva de textos y contenidos',
-                    price: '+50€',
-                  },
-                  {
-                    checked: hasSeoPro,
-                    setter: setHasSeoPro,
-                    label: 'Optimización SEO on-page y Schema para Google',
-                    price: '+40€',
-                  },
-                  {
-                    checked: hasBooking,
-                    setter: setHasBooking,
-                    label: 'Sistema de reservas online o citas previas',
-                    price: '+65€',
-                  },
-                  {
-                    checked: hasPaymentGateway,
-                    setter: setHasPaymentGateway,
-                    label: 'Pasarela de cobro en línea (Stripe / PayPal)',
-                    price: '+80€',
-                  },
-                  {
-                    checked: hasMultilingual,
-                    setter: setHasMultilingual,
-                    label: 'Soporte multi-idioma (Español / Inglés)',
-                    price: '+75€',
-                  },
-                  {
-                    checked: isExpressDelivery,
-                    setter: setIsExpressDelivery,
-                    label: 'Entrega prioritaria express (plazo acelerado)',
-                    price: '+60€',
-                  },
-                  {
-                    checked: hasMonthlyMaintenance,
-                    setter: setHasMonthlyMaintenance,
-                    label: projectType === 'landing' 
-                      ? 'Mantenimiento mensual de landing (+45€/mes por adelantado: cambios de imágenes o textos cuando lo pidas)'
-                      : projectType === 'corporativa'
-                      ? 'Mantenimiento mensual web (+120€/mes por adelantado: soporte continuo, cambios de contenidos y optimizaciones)'
-                      : 'Mantenimiento mensual pro (+300€/mes por adelantado: Agentes IA dedicados, catálogo y soporte prioritario)',
-                    price: projectType === 'landing' ? '+45€/mes' : projectType === 'corporativa' ? '+120€/mes' : '+300€/mes',
-                  },
-                ].map((feat, idx) => (
-                  <label
-                    key={idx}
-                    className={`flex items-center justify-between p-3 rounded-xl border transition-all cursor-pointer text-xs ${
-                      feat.checked
-                        ? 'bg-teal-500/10 border-teal-400/60 text-white'
-                        : 'bg-slate-900/40 border-slate-700/60 text-slate-300 hover:border-slate-600'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <input
-                        type="checkbox"
-                        checked={feat.checked}
-                        onChange={(e) => feat.setter(e.target.checked)}
-                        className="w-4 h-4 accent-teal-400 rounded cursor-pointer"
-                      />
-                      <span>{feat.label}</span>
-                    </div>
-                    <span className="font-mono text-teal-300 font-bold shrink-0">{feat.price}</span>
-                  </label>
-                ))}
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => setDeliverySpeed('normal')}
+                  className={`p-3 rounded-xl border text-xs text-center cursor-pointer ${
+                    deliverySpeed === 'normal'
+                      ? 'bg-teal-950 border-teal-400 text-teal-300 font-bold'
+                      : 'bg-[#031d2c] border-slate-700 text-slate-300'
+                  }`}
+                >
+                  <p className="font-bold">Plazo Estándar (Sin recargo)</p>
+                  <p className="text-[10px] text-slate-400">
+                    {projectType === 'landing' ? '5 días' : projectType === 'corporativa' ? '10 días' : projectType === 'ecommerce' ? '18 días' : '25 días'}
+                  </p>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDeliverySpeed('express')}
+                  className={`p-3 rounded-xl border text-xs text-center cursor-pointer ${
+                    deliverySpeed === 'express'
+                      ? 'bg-teal-950 border-teal-400 text-teal-300 font-bold'
+                      : 'bg-[#031d2c] border-slate-700 text-slate-300'
+                  }`}
+                >
+                  <p className="font-bold">Entrega Exprés (+20%)</p>
+                  <p className="text-[10px] text-slate-400">Prioridad máxima en agenda</p>
+                </button>
               </div>
             </div>
 
           </div>
 
-          {/* Right Column: Dynamic Price Card & Form */}
-          <div className="lg:col-span-5 space-y-6">
+          {/* Bloque Derecho: Resumen, Presupuesto Calculado y Formulario */}
+          <div className="lg:col-span-5 bg-gradient-to-b from-[#083852] to-[#042031] rounded-3xl p-6 sm:p-8 border border-teal-500/40 shadow-2xl space-y-6 sticky top-28">
             
-            {/* Real-time Calculation Summary Card */}
-            <div className="bg-[#0c3952] rounded-3xl p-6 sm:p-7 border-2 border-teal-400/80 shadow-2xl relative overflow-hidden">
-              <div className="text-xs uppercase tracking-wider font-extrabold text-teal-300 mb-1 flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-teal-300" />
-                <span>Presupuesto Estimado</span>
+            <div className="text-center pb-6 border-b border-slate-700">
+              <span className="text-xs uppercase tracking-widest text-slate-300 font-bold block mb-1">
+                Presupuesto Estimado
+              </span>
+              <div className="text-5xl font-black font-mono text-teal-300 tracking-tight">
+                {totalEstimate} €
               </div>
               
-              <div className="flex items-baseline gap-3 my-3">
-                <span className="text-4xl sm:text-5xl font-black text-white font-mono tabular-nums tracking-tight">
-                  {totalEur}€
-                </span>
-                <span className="text-base text-teal-200 font-mono tabular-nums">
-                  (~${totalUsd} USD)
-                </span>
-              </div>
-
-              {/* Milestone payment breakdown */}
-              <div className="p-3 rounded-xl bg-[#062436] border border-teal-400/30 text-xs space-y-1.5 my-3">
-                <div className="flex items-center justify-between text-slate-200">
-                  <span>Pago inicial (para pedir):</span>
-                  <span className="font-mono font-bold text-teal-300">{depositEur}€</span>
-                </div>
-                <div className="flex items-center justify-between text-slate-200">
-                  <span>Pago final (al terminar la web):</span>
-                  <span className="font-mono font-bold text-teal-300">{finalPaymentEur}€</span>
-                </div>
-                {hasMonthlyMaintenance && (
-                  <div className="flex items-center justify-between text-teal-200 pt-1.5 border-t border-white/10">
-                    <span>Mantenimiento mensual (por adelantado):</span>
-                    <span className="font-mono font-bold text-white">+{monthlyFee}€/mes</span>
-                  </div>
-                )}
-              </div>
-
-              <div className="text-xs text-slate-300 border-t border-white/10 pt-3 flex items-center justify-between">
-                <span>Tiempo de entrega estimado:</span>
-                <span className="font-bold text-white font-mono">{estimatedDays} días hábiles</span>
-              </div>
-
-              <div className="mt-2 text-[11px] text-slate-400 italic">
-                * Tarifa transparente. Solo realizamos 1 web por pedido con dedicación 100% exclusiva. Los mantenimientos mensuales se abonan por adelantado sin permanencia.
+              <div className="mt-3 p-2.5 rounded-xl bg-[#031d2c] border border-slate-700 text-xs text-slate-200">
+                <span className="text-teal-400 font-bold">Condiciones de Pago:</span>
+                <p className="text-[11px] text-slate-300 mt-0.5">
+                  50% al empezar ({Math.round(totalEstimate / 2)} €) y 50% al entregar ({Math.round(totalEstimate / 2)} €)
+                </p>
               </div>
             </div>
 
-            {/* Submission Form */}
-            <div className="bg-slate-800/90 rounded-3xl p-6 sm:p-7 border border-slate-700 shadow-xl">
-              <h3 className="text-lg font-bold text-white mb-1">
-                Solicita tu propuesta formal
-              </h3>
-              <p className="text-xs text-slate-300 mb-5">
-                Recibe respuesta en menos de 1 hora por tu canal de preferencia.
-              </p>
-
-              {formError && (
-                <div className="mb-4 p-3 rounded-xl bg-rose-950/80 border border-rose-500/50 text-rose-200 text-xs flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
-                  <span>{formError}</span>
+            {/* Estado de Envío Realizado */}
+            {submitted ? (
+              <div className="p-6 rounded-2xl bg-teal-950/90 border border-teal-400 text-center space-y-4">
+                <div className="w-12 h-12 rounded-full bg-teal-500 text-[#031d2c] flex items-center justify-center mx-auto">
+                  <CheckCircle2 className="w-7 h-7" />
                 </div>
-              )}
-
+                <h4 className="text-lg font-black text-white">
+                  ¡Solicitud Enviada con Éxito!
+                </h4>
+                <p className="text-xs text-slate-200 leading-relaxed">
+                  Gracias {name || ''}. He recibido tu configuración de <strong>{totalEstimate} €</strong>. 
+                  Te contactaré hoy mismo para confirmar detalles y agendar una breve llamada.
+                </p>
+                <a
+                  href={`https://wa.me/34608180231?text=${getWhatsAppMessage()}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-teal-500 hover:bg-teal-400 text-[#031d2c] font-black text-xs transition-colors shadow-md"
+                >
+                  <MessageSquare className="w-4 h-4 fill-current" />
+                  <span>Enviar también por WhatsApp</span>
+                </a>
+              </div>
+            ) : (
+              /* Formulario para recibir la propuesta */
               <form onSubmit={handleSubmit} className="space-y-4">
+                <p className="text-xs font-bold text-slate-200">
+                  ¿Quieres recibir esta propuesta formal o hablarlo directamente?
+                </p>
+
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">
-                    Tu nombre o nombre de empresa *
-                  </label>
                   <input
                     type="text"
                     required
-                    placeholder="Ej. Laura Martínez"
-                    value={clientName}
-                    onChange={(e) => setClientName(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:border-teal-400 focus:outline-none transition-colors"
+                    placeholder="Tu nombre o negocio *"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#031d2c] border border-slate-600 text-white placeholder-slate-400 text-xs focus:outline-none focus:border-teal-400"
                   />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
-                      Correo electrónico *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="laura@empresa.com"
-                      value={clientEmail}
-                      onChange={(e) => setClientEmail(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:border-teal-400 focus:outline-none transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
-                      WhatsApp / Teléfono
-                    </label>
-                    <input
-                      type="tel"
-                      placeholder="Tu número o móvil"
-                      value={clientPhone}
-                      onChange={(e) => setClientPhone(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:border-teal-400 focus:outline-none transition-colors"
-                    />
-                  </div>
+                <div>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Teléfono o WhatsApp *"
+                    value={contact}
+                    onChange={(e) => setContact(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#031d2c] border border-slate-600 text-white placeholder-slate-400 text-xs focus:outline-none focus:border-teal-400"
+                  />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">
-                    Detalles o enlaces de referencia (opcional)
-                  </label>
                   <textarea
                     rows={2}
-                    placeholder="Cuéntame brevemente sobre tu negocio o el estilo web que buscas..."
-                    value={clientNotes}
-                    onChange={(e) => setClientNotes(e.target.value)}
-                    className="w-full px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:border-teal-400 focus:outline-none transition-colors resize-none"
+                    placeholder="Detalles sobre tu proyecto (opcional)"
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#031d2c] border border-slate-600 text-white placeholder-slate-400 text-xs focus:outline-none focus:border-teal-400"
                   />
                 </div>
 
-                {/* Preferred channel */}
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-2">
-                    ¿Por qué canal prefieres que te contacte?
-                  </label>
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    {[
-                      { id: 'whatsapp', label: 'WhatsApp' },
-                      { id: 'linkedin', label: 'LinkedIn' },
-                      { id: 'email', label: 'Correo' },
-                      { id: 'telefono', label: 'Teléfono' },
-                    ].map((ch) => (
-                      <button
-                        key={ch.id}
-                        type="button"
-                        onClick={() => setPreferredChannel(ch.id as any)}
-                        className={`py-2 px-3 rounded-lg border text-xs font-semibold transition-colors cursor-pointer ${
-                          preferredChannel === ch.id
-                            ? 'bg-teal-400 text-slate-950 border-teal-300 font-bold'
-                            : 'bg-slate-900 border-slate-700 text-slate-300 hover:border-slate-500'
-                        }`}
-                      >
-                        {ch.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                {/* Casilla RGPD */}
+                <label className="flex items-start gap-2 text-[11px] text-slate-300 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    required
+                    checked={acceptedPrivacy}
+                    onChange={(e) => setAcceptedPrivacy(e.target.checked)}
+                    className="mt-0.5 rounded accent-teal-400"
+                  />
+                  <span>
+                    Acepto la política de privacidad para recibir mi propuesta personalizada.
+                  </span>
+                </label>
 
-                <button
-                  type="submit"
-                  className="w-full py-3.5 rounded-xl bg-[#16d5d0] hover:bg-[#61efdf] text-[#031d2c] font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-teal-500/25 transition-all cursor-pointer mt-2"
-                >
-                  <Send className="w-4 h-4" />
-                  <span>Enviar solicitud de presupuesto</span>
-                </button>
+                <div className="pt-2 space-y-2">
+                  <button
+                    type="submit"
+                    className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-teal-500 hover:bg-teal-400 text-[#031d2c] font-black text-sm transition-all shadow-[0_0_20px_rgba(22,213,208,0.3)] cursor-pointer"
+                  >
+                    <Send className="w-4 h-4" />
+                    <span>Solicitar Propuesta ({totalEstimate}€)</span>
+                  </button>
+
+                  <a
+                    href={`https://wa.me/34608180231?text=${getWhatsAppMessage()}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-600 transition-colors"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5 fill-current text-teal-400" />
+                    <span>Enviar directo por WhatsApp</span>
+                  </a>
+                </div>
               </form>
-            </div>
+            )}
 
           </div>
 
         </div>
 
       </div>
-
-      {/* Confirmation Modal */}
-      {submitted && (
-        <div className="fixed inset-0 z-50 bg-[#031d2c]/85 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white text-slate-900 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 text-center animate-in zoom-in-95">
-            <div className="w-16 h-16 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center mx-auto mb-4 font-black text-2xl">
-              ✓
-            </div>
-            
-            <h4 className="text-2xl font-black text-[#062b40]">
-              ¡Solicitud registrada con éxito!
-            </h4>
-            
-            <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-              Gracias, <strong>{clientName}</strong>. He recibido la configuración de tu proyecto estimado en <strong className="text-teal-700">{totalEur}€</strong>. Te responderé en menos de 1 hora.
-            </p>
-
-            <div className="mt-6 space-y-3">
-              <a
-                href={generateWhatsappMessage()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-3 px-4 rounded-xl bg-[#25D366] text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-[#20ba5a] transition-colors"
-              >
-                <MessageSquare className="w-4 h-4" />
-                <span>Enviar presupuesto ahora por WhatsApp</span>
-              </a>
-
-              <a
-                href={PERSONAL_INFO.linkedinUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2.5 px-4 rounded-xl bg-[#0077b5] text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-[#006097] transition-colors"
-              >
-                <Linkedin className="w-3.5 h-3.5" />
-                <span>Contactar por LinkedIn oficial</span>
-              </a>
-
-              <button
-                onClick={() => setSubmitted(false)}
-                className="text-xs font-semibold text-slate-500 hover:text-slate-800 py-2 cursor-pointer"
-              >
-                Volver a la calculadora
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 };

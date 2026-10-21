@@ -1,144 +1,116 @@
 import React from 'react';
-import { Heart, Sparkles, Check, Linkedin, ExternalLink, ShieldCheck, Zap, Users } from 'lucide-react';
-import { PERSONAL_INFO } from '../data/portfolioData';
+import { User, MapPin, CheckCircle2, MessageSquare, Linkedin, ExternalLink, Award, Code2, HeartHandshake } from 'lucide-react';
+import { PERSONAL_INFO, HOW_I_WORK_PILLARS } from '../data/portfolioData';
 
 export const AboutSection: React.FC = () => {
   return (
-    <section id="sobre-mi" className="py-20 bg-white text-slate-800 relative">
+    <section id="sobre-mi" className="py-20 sm:py-28 bg-[#021622] text-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="max-w-3xl mb-12">
-          <div className="text-teal-600 text-xs font-extrabold uppercase tracking-widest mb-2 flex items-center gap-1.5">
-            <Sparkles className="w-4 h-4 text-teal-600" />
+        {/* Header de sección */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-950 border border-teal-500/30 text-teal-300 text-xs font-bold uppercase tracking-wider mb-3">
+            <User className="w-3.5 h-3.5 text-teal-400" />
             <span>Sobre mí</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#062b40] tracking-tight">
-            Mi pasión, tu proyecto.
+          <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
+            Tu idea, mi código, tu web
           </h2>
-          <p className="mt-3 text-lg text-slate-600">
-            Una presencia online que refleja tu idea con claridad, elegancia y resultados tangibles.
+          <p className="mt-3 text-slate-300 text-base sm:text-lg">
+            Desarrollo web artesanal y estratégico con base en Barcelona. Sin intermediarios, sin plantillas genéricas sobrecargadas.
           </p>
         </div>
 
-        {/* 2-Column Split: Story & Visuals */}
+        {/* Grid principal */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Visual Column: Portrait + Workspace */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="relative">
-              {/* Main Portrait */}
-              <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-100 bg-slate-100 relative group">
-                <img
-                  src={PERSONAL_INFO.portraitImage}
-                  alt={PERSONAL_INFO.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  referrerPolicy="no-referrer"
-                />
-                
-                {/* Floating quote bubble matching user flyer */}
-                <div className="absolute -bottom-4 right-4 bg-[#062b40] text-white p-4 rounded-2xl shadow-xl max-w-xs border border-teal-500/30">
-                  <p className="text-sm font-semibold italic text-slate-100">
-                    "{PERSONAL_INFO.philosophy}"
-                  </p>
-                  <span className="block text-[11px] text-teal-300 font-bold uppercase tracking-wider mt-2">
-                    CreadorWebs · Diseño &amp; Desarrollo Web
-                  </span>
-                </div>
+          {/* Columna Izquierda: Fotografías de Estudio y Workspace */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="relative rounded-3xl overflow-hidden border-2 border-teal-500/30 shadow-2xl aspect-[4/3] bg-slate-900 group">
+              <img
+                src={PERSONAL_INFO.workspaceImage}
+                alt="Workspace de desarrollo web en Barcelona"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                onError={(e) => {
+                  (e.currentTarget as HTMLElement).style.display = 'none';
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#021622] via-transparent to-transparent opacity-80" />
+              <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-[#031d2c]/90 backdrop-blur-md border border-slate-700 text-xs flex items-center justify-between">
+                <span className="font-bold text-white flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-teal-400" />
+                  {PERSONAL_INFO.location}
+                </span>
+                <span className="text-teal-300 font-semibold">Creador-Webs</span>
               </div>
+            </div>
 
-              {/* Verified channel card */}
-              <div className="mt-6 p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#0077b5] text-white flex items-center justify-center font-bold">
-                    <Linkedin className="w-5 h-5" />
-                  </div>
-                  <div className="text-xs">
-                    <span className="font-bold text-slate-900 block">Perfil en LinkedIn</span>
-                    <span className="text-slate-500 block">Conecta para colaboraciones y contratos</span>
-                  </div>
+            <div className="p-5 rounded-2xl bg-[#062b40]/60 border border-slate-700/80 space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-teal-500/20 text-teal-300 flex items-center justify-center shrink-0">
+                  <HeartHandshake className="w-5 h-5" />
                 </div>
-                <a
-                  href={PERSONAL_INFO.linkedinUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3.5 py-1.5 text-xs font-bold text-white bg-[#0077b5] hover:bg-[#005f93] rounded-lg transition-colors flex items-center gap-1 shrink-0"
-                >
-                  <span>Conectar</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
+                <div>
+                  <h4 className="text-sm font-bold text-white">Trato 100% Directo</h4>
+                  <p className="text-xs text-slate-300">Hablas directamente con quien programa tu web.</p>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Text & Traits Column */}
+          {/* Columna Derecha: Historia y Metodología */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="space-y-4 text-base text-slate-700 leading-relaxed">
-              {PERSONAL_INFO.aboutBio.map((paragraph, idx) => (
-                <p key={idx}>{paragraph}</p>
+            <h3 className="text-2xl sm:text-3xl font-bold text-white leading-snug">
+              Hola, soy <span className="text-teal-300 font-black">Yanis HP</span>. Ayudo a negocios y profesionales a tener la web que de verdad merecen.
+            </h3>
+
+            <p className="text-slate-300 text-base leading-relaxed">
+              Durante años he visto cómo emprendedores y pequeñas empresas gastan presupuestos desorbitados en agencias para recibir páginas lentas, difíciles de editar y que no consiguen clientes. 
+            </p>
+
+            <p className="text-slate-300 text-base leading-relaxed">
+              Mi filosofía en <strong>Creador-Webs</strong> es la contraria: <strong>claridad, velocidad y retorno de inversión</strong>. Cada línea de código que escribo tiene como único objetivo que quien visite tu web entienda tu valor en menos de 5 segundos y tenga un camino sin fricción para contactarte.
+            </p>
+
+            {/* 3 Pilares de Trabajo */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+              {HOW_I_WORK_PILLARS.map((pillar) => (
+                <div key={pillar.number} className="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80">
+                  <span className="text-xs font-mono font-black text-teal-400 block mb-1">
+                    {pillar.number}
+                  </span>
+                  <h4 className="text-sm font-bold text-white mb-1.5">{pillar.title}</h4>
+                  <p className="text-xs text-slate-400 leading-relaxed">{pillar.desc}</p>
+                </div>
               ))}
             </div>
 
-            {/* Core Values / Traits */}
-            <div className="pt-2">
-              <h3 className="text-sm font-extrabold text-[#062b40] uppercase tracking-wider mb-4">
-                Pilares de mi forma de trabajar
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="p-4 rounded-xl bg-teal-50/60 border border-teal-100">
-                  <div className="w-8 h-8 rounded-lg bg-teal-600 text-white flex items-center justify-center mb-2 font-bold text-sm">
-                    ✦
-                  </div>
-                  <h4 className="font-bold text-sm text-[#062b40]">Creativa</h4>
-                  <p className="text-xs text-slate-600 mt-1">
-                    Diseños originales y estética cuidada sin plantillas genéricas.
-                  </p>
-                </div>
+            {/* Botones de acción y perfil */}
+            <div className="pt-4 flex flex-wrap items-center gap-4">
+              <a
+                href={PERSONAL_INFO.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-teal-500 hover:bg-teal-400 text-[#031d2c] font-black text-sm transition-all shadow-md"
+              >
+                <MessageSquare className="w-4 h-4 fill-current" />
+                <span>Hablar con Yanis</span>
+              </a>
 
-                <div className="p-4 rounded-xl bg-teal-50/60 border border-teal-100">
-                  <div className="w-8 h-8 rounded-lg bg-teal-600 text-white flex items-center justify-center mb-2 font-bold text-sm">
-                    <Heart className="w-4 h-4 fill-white" />
-                  </div>
-                  <h4 className="font-bold text-sm text-[#062b40]">Comprometida</h4>
-                  <p className="text-xs text-slate-600 mt-1">
-                    Atención al detalle y comunicación transparente en todo momento.
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-xl bg-teal-50/60 border border-teal-100">
-                  <div className="w-8 h-8 rounded-lg bg-teal-600 text-white flex items-center justify-center mb-2 font-bold text-sm">
-                    <ShieldCheck className="w-4 h-4" />
-                  </div>
-                  <h4 className="font-bold text-sm text-[#062b40]">Orientada a resultados</h4>
-                  <p className="text-xs text-slate-600 mt-1">
-                    Estructuras diseñadas para que tus visitas se conviertan en clientes.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Checklist of guarantees from user flyer */}
-            <div className="p-5 rounded-2xl bg-[#062b40] text-white">
-              <div className="text-xs font-bold uppercase tracking-wider text-teal-300 mb-3 flex items-center gap-1.5">
-                <Zap className="w-4 h-4 text-teal-300" />
-                <span>Lo que garantizo en cada entrega</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                {PERSONAL_INFO.guarantees.map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-2">
-                    <div className="w-4 h-4 rounded-full bg-teal-400 text-[#031d2c] flex items-center justify-center shrink-0 mt-0.5 font-bold">
-                      <Check className="w-3 h-3 stroke-[3]" />
-                    </div>
-                    <div>
-                      <span className="font-bold text-white block">{item.title}</span>
-                      <span className="text-slate-300 text-[11px]">{item.desc}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <a
+                href={PERSONAL_INFO.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-semibold border border-slate-700 transition-colors"
+              >
+                <Linkedin className="w-4 h-4 text-[#0077b5]" />
+                <span>Ver Perfil en LinkedIn</span>
+                <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+              </a>
             </div>
 
           </div>
+
         </div>
 
       </div>
