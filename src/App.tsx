@@ -44,6 +44,12 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
 
+  useEffect(() => {
+    if (!activeNicheDemo) {
+      document.title = "Creador-Webs | Landing Pages, Webs Corporativas, Tiendas Online, Mantenimiento & Reformas · Yanis HP";
+    }
+  }, [activeNicheDemo]);
+
   const handleOpenLegal = (tab: 'aviso' | 'privacidad' | 'cookies') => {
     setLegalModalTab(tab);
     setLegalModalOpen(true);

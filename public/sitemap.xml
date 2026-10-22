@@ -1,76 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- google-site-verification=xG5CRB0vvMsEIUWhw_syaoCDziaVVmu_mMHYk0v2WOY -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <!-- Página de Inicio Principal -->
+
+  <!-- 1. Página de Inicio Principal de Creador-Webs -->
   <url>
     <loc>https://creador-webs.vercel.app/</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://creador-webs.vercel.app/og-image.jpg</image:loc>
-      <image:title>CreadorWebs | Diseño Web y Desarrollo Profesional</image:title>
-      <image:caption>Diseño y desarrollo de sitios web modernos, tiendas online y landing pages profesionales con Agentes IA.</image:caption>
+      <image:title>Creador-Webs | Landing Pages, Webs Corporativas, Tiendas Online y Mantenimiento Web · Yanis HP</image:title>
+      <image:caption>Diseño y desarrollo web de alta conversión para autónomos, pymes y empresas de reformas en Barcelona y España.</image:caption>
     </image:image>
   </url>
 
-  <!-- Página Dedicada: Landing Pages de Alta Conversión -->
+  <!-- 2. Servicio: Landing Pages de Alta Conversión (250 €) -->
   <url>
     <loc>https://creador-webs.vercel.app/servicios/landing-pages</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://creador-webs.vercel.app/og-image.jpg</image:loc>
-      <image:title>Diseño de Landing Pages Profesionales | CreadorWebs</image:title>
-      <image:caption>Landing pages de alto impacto por 250€ (125€ al pedir + 125€ al finalizar). Opción de mantenimiento y gestión por 45€/mes.</image:caption>
+      <image:title>Diseño de Landing Pages Express | Creador-Webs</image:title>
+      <image:caption>Landing Page Express por 250 € (50% al empezar y 50% al entregar). Lista en 5 días con botón directo de WhatsApp.</image:caption>
     </image:image>
   </url>
 
-  <!-- Página Dedicada: Webs Corporativas para Empresas -->
+  <!-- 3. Servicio: Webs Corporativas Pro (550 €) -->
   <url>
     <loc>https://creador-webs.vercel.app/servicios/webs-corporativas</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://creador-webs.vercel.app/og-image.jpg</image:loc>
-      <image:title>Desarrollo de Páginas Web Corporativas | CreadorWebs</image:title>
-      <image:caption>Sitios corporativos para empresas y pymes. Hasta 5 páginas completas, hosting y soporte con Agentes IA.</image:caption>
+      <image:title>Desarrollo de Webs Corporativas Pro | Creador-Webs</image:title>
+      <image:caption>Webs profesionales de hasta 5 páginas completas con formulario de presupuesto y galería interactiva por 550 €.</image:caption>
     </image:image>
   </url>
 
-  <!-- Página Dedicada: Tiendas Online (E-Commerce) -->
+  <!-- 4. Servicio: Tiendas Online E-Commerce (950 €) -->
   <url>
     <loc>https://creador-webs.vercel.app/servicios/tiendas-online</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://creador-webs.vercel.app/og-image.jpg</image:loc>
-      <image:title>Tiendas Online y Comercio Electrónico | CreadorWebs</image:title>
-      <image:caption>E-Commerce profesional con catálogo de productos, pasarela de pago Stripe/PayPal y alta velocidad.</image:caption>
+      <image:title>Tiendas Online E-Commerce y Catálogos | Creador-Webs</image:title>
+      <image:caption>Tiendas online con pasarela de pago Bizum/Stripe/Tarjetas, catálogo autogestionable y panel de control por 950 €.</image:caption>
     </image:image>
   </url>
 
-  <!-- Página Dedicada: Portafolio y Casos de Estudio -->
+  <!-- 5. Servicio: Mantenimiento Web Profesional (desde +100€/mes) -->
+  <url>
+    <loc>https://creador-webs.vercel.app/servicios/mantenimiento-web</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://creador-webs.vercel.app/og-image.jpg</image:loc>
+      <image:title>Mantenimiento Web Profesional | Creador-Webs</image:title>
+      <image:caption>Mantenimiento opcional desde + 100€/mes sin permanencia: copias de seguridad, actualizaciones y soporte técnico continuo.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 6. Demo Especializada: Webs para Reformistas de Barcelona -->
+  <url>
+    <loc>https://creador-webs.vercel.app/#demo-reformistas</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://creador-webs.vercel.app/og-image.jpg</image:loc>
+      <image:title>Webs para Reformas y Reformistas | Creador-Webs</image:title>
+      <image:caption>Diseño web enfocado en mostrar fotos de obras terminadas (antes y después) y botón de presupuesto inmediato por WhatsApp.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 7. Demo Especializada: Webs para Electricistas -->
+  <url>
+    <loc>https://creador-webs.vercel.app/#demo-electricistas</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 8. Demo Especializada: Webs para Pintores -->
+  <url>
+    <loc>https://creador-webs.vercel.app/#demo-pintores</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 9. Demo Especializada: Webs para Fontaneros -->
+  <url>
+    <loc>https://creador-webs.vercel.app/#demo-fontaneros</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 10. Portafolio & Casos de Estudio Reales -->
   <url>
     <loc>https://creador-webs.vercel.app/portafolio</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://creador-webs.vercel.app/og-image.jpg</image:loc>
-      <image:title>Portafolio de Proyectos Web | CreadorWebs</image:title>
-      <image:caption>Muestrario de casos de éxito reales: EcoVida, Belleza Natural y La Terraza.</image:caption>
+      <image:title>Portafolio de Proyectos Web | Creador-Webs</image:title>
+      <image:caption>Casos de estudio reales: EcoVida, Belleza Natural y Restaurante La Terraza.</image:caption>
     </image:image>
   </url>
 
-  <!-- Página Dedicada: Contacto y Cotizador -->
+  <!-- 11. Cotizador de Presupuestos Online en Tiempo Real -->
   <url>
-    <loc>https://creador-webs.vercel.app/contacto</loc>
-    <lastmod>2026-10-16</lastmod>
+    <loc>https://creador-webs.vercel.app/#cotizador</loc>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- 12. Contacto Directo & WhatsApp -->
+  <url>
+    <loc>https://creador-webs.vercel.app/contacto</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>

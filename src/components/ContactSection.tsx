@@ -21,7 +21,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenLegal }) =
   };
 
   const getDirectWhatsAppUrl = () => {
-    const text = `Hola Yanis! Te contacto desde la web de Creador-Webs.
+    const text = `¡Hola, Yanis! Te contacto desde la web de Creador-Webs.
 - Nombre: ${name || 'Cliente'}
 - Contacto: ${emailOrPhone || 'No indicado'}
 - Servicio de interés: ${serviceType}

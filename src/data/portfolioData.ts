@@ -56,8 +56,8 @@ export const PERSONAL_INFO = {
   name: "Yanis HP",
   brandName: "Creador-Webs",
   tagline: "Diseño Web 24/7",
-  headline: "Creo páginas web modernas que no solo se ven bien: venden",
-  subheadline: "Diseño y desarrollo web a medida para autónomos, pymes y negocios locales. Interfaces ultra rápidas, optimizadas para móvil y pensadas para convertir visitas en clientes reales.",
+  headline: "Creo agentes de inteligencia artificial dentro de tus páginas web: que venden por ti",
+  subheadline: "Diseño y desarrollo web a medida para autónomos, pymes y negocios locales. Interfaces ultrarrápidas, optimizadas para móvil y pensadas para convertir visitas en clientes reales.",
   phone: "608 18 02 31",
   phoneRaw: "608180231",
   whatsappNumber: "34608180231",
@@ -179,7 +179,7 @@ export const MAINTENANCE_OFFER: MaintenancePlan = {
   frequency: "mes",
   isOptional: true,
   scope: [
-    "Copias de seguridad periódicas de seguridad de tu web",
+    "Copias periódicas de seguridad de tu web",
     "Actualizaciones técnicas de seguridad, plugins y dependencias",
     "Revisión mensual de formularios y enlaces para comprobar que todo funciona",
     "Monitorización continua de disponibilidad",
@@ -315,7 +315,7 @@ export const HOW_I_WORK_PILLARS = [
   {
     number: "02",
     title: "Diseño & Desarrollo Ágil",
-    desc: "Diseño a medida con código limpio y ultra rápido. Ves los avances y afinamos juntos con rondas de revisión incluidas antes de publicar."
+    desc: "Diseño a medida con código limpio y ultrarrápido. Ves los avances y afinamos juntos con rondas de revisión incluidas antes de publicar."
   },
   {
     number: "03",

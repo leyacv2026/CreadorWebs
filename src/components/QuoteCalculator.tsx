@@ -91,7 +91,7 @@ export const QuoteCalculator: React.FC = () => {
   };
 
   const getWhatsAppMessage = () => {
-    const text = `Hola Yanis! He calculado un presupuesto en tu web:
+    const text = `¡Hola, Yanis! He calculado un presupuesto en tu web:
 - Tipo: ${projectType.toUpperCase()}
 - Páginas estimadas: ${projectType === 'landing' ? 1 : pagesCount}
 - Módulos extras: ${selectedModules.join(', ')}

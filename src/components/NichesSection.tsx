@@ -38,7 +38,7 @@ export const NichesSection: React.FC<NichesSectionProps> = ({ onSelectNiche, onO
       subtitle: 'Reformistas · Pintores · Fontaneros · Electricistas',
       icon: <Hammer className="w-6 h-6 text-amber-400" />,
       tag: 'Alta Demanda',
-      description: 'Webs ultra directas diseñadas para que los clientes vean fotos de tus trabajos terminados y te pidan presupuesto por WhatsApp al instante.',
+      description: 'Webs ultradirectas diseñadas para que los clientes vean fotos de tus trabajos terminados y te pidan presupuesto por WhatsApp al instante.',
       keyFeatures: [
         'Galería visual de obras (formato antes y después)',
         'Botón directo de WhatsApp para presupuestos en 1 clic',

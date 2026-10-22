@@ -1,8 +1,25 @@
-# robots.txt para CreadorWebs
+# robots.txt oficial para Creador-Webs
 # https://creador-webs.vercel.app
+# Acceso 100% permitido para todos los rastreadores y motores de búsqueda
 
 User-agent: *
 Allow: /
 
-# Directiva para buscadores
+# Motores de búsqueda principales permitidos expresamente
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+# Índice de páginas y sitemap oficial
 Sitemap: https://creador-webs.vercel.app/sitemap.xml

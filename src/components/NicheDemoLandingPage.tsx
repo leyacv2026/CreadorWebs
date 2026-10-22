@@ -34,6 +34,16 @@ export const NicheDemoLandingPage: React.FC<NicheDemoLandingPageProps> = ({ nich
     }
   }, [nicheId]);
 
+  useEffect(() => {
+    const nicheTitles: Record<string, string> = {
+      reformistas: "Webs para Reformas y Reformistas | Creador-Webs · Landing Pages, Webs Corporativas, Tiendas Online y Mantenimiento",
+      electricistas: "Webs para Electricistas | Creador-Webs · Landing Pages, Webs Corporativas, Tiendas Online y Mantenimiento",
+      pintores: "Webs para Pintores | Creador-Webs · Landing Pages, Webs Corporativas, Tiendas Online y Mantenimiento",
+      fontaneros: "Webs para Fontaneros | Creador-Webs · Landing Pages, Webs Corporativas, Tiendas Online y Mantenimiento",
+    };
+    document.title = nicheTitles[selectedId] || "Creador-Webs | Landing Pages, Webs Corporativas, Tiendas Online, Mantenimiento & Reformas · Yanis HP";
+  }, [selectedId]);
+
   const config: NicheDemoConfig = NICHES_DEMO_DATA[selectedId] || NICHES_DEMO_DATA['reformistas'];
 
   const PHONE_NUMBER = "608 18 02 31";

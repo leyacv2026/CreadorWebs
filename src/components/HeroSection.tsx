@@ -32,16 +32,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
             {/* Titular Principal */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1]">
-              Creo páginas web modernas que no solo se ven bien:{' '}
+              Creo agentes de inteligencia artificial dentro de tus páginas web:{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-cyan-300 to-teal-400">
-                venden.
+                que venden por ti
               </span>
             </h1>
 
             {/* Subtítulo persuasivo */}
             <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
               Transformo la presencia digital de tu negocio en una máquina de generar clientes. 
-              Páginas ultra rápidas, perfectamente optimizadas para móvil y diseñadas para que tus visitas te llamen o te escriban por WhatsApp.
+              Páginas ultrarrápidas, perfectamente optimizadas para móvil y diseñadas para que tus visitas te llamen o te escriban por WhatsApp.
             </p>
 
             {/* Doble CTA de Acción Inmediata */}

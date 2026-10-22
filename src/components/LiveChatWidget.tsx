@@ -156,6 +156,26 @@ Como desarrollador freelance especializado en webs para autónomos y pymes de Ba
     }
   }, [messages, isWidgetOpen, isTyping]);
 
+  const resetChat = () => {
+    setMessages(initialBotMessages);
+    setInputMessage('');
+    setIsTyping(false);
+    setShowAppointmentForm(false);
+    setApptName('');
+    setApptPhone('');
+    setApptDate('');
+    setApptService('Landing Page Express (250€)');
+  };
+
+  const wasOpenRef = useRef(isWidgetOpen);
+  useEffect(() => {
+    // Si se cierra el chat desde cualquier origen, no guardar la conversación anterior y empezar de cero
+    if (wasOpenRef.current && !isWidgetOpen) {
+      resetChat();
+    }
+    wasOpenRef.current = isWidgetOpen;
+  }, [isWidgetOpen]);
+
   const handleOpen = () => {
     setInternalIsOpen(true);
     if (controlledOnOpen) {
@@ -168,6 +188,7 @@ Como desarrollador freelance especializado en webs para autónomos y pymes de Ba
 
   const handleClose = () => {
     setInternalIsOpen(false);
+    resetChat();
     if (controlledOnClose) {
       controlledOnClose();
     }
